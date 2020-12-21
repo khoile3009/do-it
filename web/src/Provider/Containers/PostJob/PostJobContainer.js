@@ -31,17 +31,9 @@ class PostJobContainer extends Component {
 
 	render() {
 		return (
-			<>
+			<div>
 				<PostJob></PostJob>
-				{/* <ChipInput
-					{...this.props}
-					value={this.state.tags}
-					onAdd={(tag) => this.handleAdd(tag)}
-					onDelete={(deletedTag) => this.handleDelete(deletedTag)}
-					fullWidth
-					handleKeyDown={this.handleKeyDown}
-				></ChipInput> */}
-			</>
+			</div>
 		);
 	}
 }
