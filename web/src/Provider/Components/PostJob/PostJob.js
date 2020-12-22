@@ -182,7 +182,7 @@ const PostJob = (props) => {
 						<ChipInput fullWidth multiline />
 					</div>
 				</form>
-				<div>
+				<div style={{ textAlign: "right" }}>
 					<Button onClick="" variant="contained" color="secondary">
 						Cancel
 					</Button>
