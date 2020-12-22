@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PostJob from "../../Components/PostJob/PostJob.js";
+import { Modal } from "@material-ui/core";
 
 class PostJobContainer extends Component {
 	constructor(props) {
@@ -7,33 +8,17 @@ class PostJobContainer extends Component {
 		this.state = {
 			tags: [],
 		};
-
-		this.handleKeyDown = this.handleKeyDown.bind(this);
-	}
-
-	handleKeyDown(e) {
-		if (e.key == "Enter") {
-			this.handleAdd();
-		}
-	}
-
-	handleAdd(tag) {
-		this.setState({
-			tags: [...this.state.tags, tag],
-		});
-	}
-
-	handleDelete(deletedTag) {
-		this.setState({
-			tags: this.state.tags.filter((c) => c !== deletedTag),
-		});
 	}
 
 	render() {
 		return (
-			<div>
+			<>
+				{/* <PostJobTitle></PostJobTitle> */}
 				<PostJob></PostJob>
-			</div>
+				{/* <PostJob></PostJob>
+				<PostJob></PostJob>
+				<PostJob></PostJob> */}
+			</>
 		);
 	}
 }

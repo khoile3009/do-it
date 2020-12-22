@@ -4,7 +4,8 @@ import "../../../Theme/__global-theme.scss";
 import Calendar from "react-calendar";
 import TimePicker from "react-time-picker";
 import ChipInput from "material-ui-chip-input";
-
+import PropTypes from "prop-types";
+import NumberFormat from "react-number-format";
 import {
 	FormControl,
 	InputLabel,
@@ -13,6 +14,9 @@ import {
 	Typography,
 	TextField,
 	Modal,
+	Button,
+	OutlinedInput,
+	InputAdornment,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,11 +46,50 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+function NumberFormatCustom(props) {
+	const { inputRef, onChange, ...other } = props;
+
+	return (
+		<NumberFormat
+			{...other}
+			getInputRef={inputRef}
+			onValueChange={(values) => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value,
+					},
+				});
+			}}
+			thousandSeparator
+			isNumericString
+			prefix="VND "
+		/>
+	);
+}
+
+NumberFormatCustom.propTypes = {
+	inputRef: PropTypes.func.isRequired,
+	name: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+};
+
 const PostJob = (props) => {
 	const classes = useStyles();
 	const [valueDate, onChangeDate] = useState(new Date());
 	const [valueTimeStart, onChangeTimeStart] = useState("10:00");
 	const [valueTimeEnd, onChangeTimeEnd] = useState("11:00");
+	const [values, setValues] = React.useState({
+		textmask: "(1  )    -    ",
+		numberformat: "100000",
+	});
+
+	const handleChange = (event) => {
+		setValues({
+			...values,
+			[event.target.name]: event.target.value,
+		});
+	};
 
 	return (
 		<Modal className={classes.modal} open="true">
@@ -56,9 +99,14 @@ const PostJob = (props) => {
 						Create a new job posting
 					</Typography>
 					<div>
-						<FormControl>
-							<InputLabel htmlFor="job-title">Title</InputLabel>
-							<Input id="job-title"></Input>
+						<FormControl fullWidth className={classes.margin} variant="outlined">
+							<InputLabel htmlFor="job-title-field">Job Title</InputLabel>
+							<OutlinedInput
+								id="job-title-field"
+								// value={values.amount}
+								// onChange={handleChange("amount")}
+								labelWidth={60}
+							/>
 						</FormControl>
 					</div>
 					<div>
@@ -70,7 +118,34 @@ const PostJob = (props) => {
 						></TextField>
 					</div>
 					<div>
-						<TextField id="job-location" label="Location" fullWidth></TextField>
+						<TextField
+							id="job-location-field"
+							label="Job Location"
+							fullWidth
+						></TextField>
+					</div>
+					<div>
+						<FormControl fullWidth className={classes.margin} variant="outlined">
+							{/* <InputLabel htmlFor="outlined-adornment-amount">Pay Amount</InputLabel>
+							<OutlinedInput
+								id="outlined-adornment-amount"
+								startAdornment={<InputAdornment position="start">$</InputAdornment>}
+								labelWidth={90}
+								InputProps={{
+									inputComponent: NumberFormatCustom,
+								}}
+							/> */}
+							<TextField
+								label="Pay amount"
+								value={values.numberformat}
+								onChange={handleChange}
+								name="numberformat"
+								id="formatted-numberformat-input"
+								InputProps={{
+									inputComponent: NumberFormatCustom,
+								}}
+							/>
+						</FormControl>
 					</div>
 					<div>
 						<Typography component="subtitle1" variant="subtitle1">
@@ -104,9 +179,18 @@ const PostJob = (props) => {
 							Tags
 						</Typography>
 						<br />
-						<ChipInput />
+						<ChipInput fullWidth multiline />
 					</div>
 				</form>
+				<div>
+					<Button onClick="" variant="contained" color="secondary">
+						Cancel
+					</Button>
+					{"\t"}
+					<Button onClick="" variant="contained" color="primary">
+						Post
+					</Button>
+				</div>
 			</div>
 		</Modal>
 	);
