@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Typography } from "@material-ui/core";
 import Calendar from "react-calendar";
 
 const PostJobDate = (props) => {

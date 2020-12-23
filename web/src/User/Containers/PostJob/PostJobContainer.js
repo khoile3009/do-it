@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Modal, Typography, withStyles, Button, Dialog } from "@material-ui/core";
 import "./PostJob.scss";
@@ -10,6 +10,7 @@ import PostJobPayAmount from "../../Components/PostJob/PostJobPayAmount";
 import PostJobDate from "../../Components/PostJob/PostJobDate";
 import PostJobTime from "../../Components/PostJob/PostJobTime";
 import PostJobTags from "../../Components/PostJob/PostJobTags";
+import PostJobConfirmation from "../../Components/PostJob/PostJobConfirmation";
 
 const useStyles = (theme) => ({
 	root: {
@@ -75,6 +76,7 @@ class PostJobContainer extends Component {
 						</div>
 					</div>
 				</Modal>
+				<PostJobConfirmation></PostJobConfirmation>
 			</>
 		);
 	}
