@@ -9,25 +9,28 @@ const useStyles = makeStyles({
 		height: "100vh",
 	},
 	landingPageContent: {
-		display: "block",
-		height: "100vh",
-		width: "100vw",
-		background: "grey",
+		display: "flex",
+		height: "90%",
+		width: "90%",
+		background: "#F1FFF7",
+		position: "absolute",
+		color: "#00C77B",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	registerBox: {
 		display: "grid",
-		alignItems: "center",
-		justifyContent: "center",
 		gridTemplateAreas: `
             'landing-tle'
             'landing-hdl'
             'landing-btn'
-        `,
+		`,
 	},
 	landingTitle: {
 		display: "flex",
 		justifyContent: "center",
 		gridArea: "landing-tle",
+		fontSize: "24pt",
 	},
 	landingHeadline: {
 		display: "flex",
@@ -41,9 +44,20 @@ const useStyles = makeStyles({
 	},
 	landingRegisterBtn: {
 		margin: "0 2rem",
+		border: "solid 1px #0089FF",
+		color: "#0089FF",
 	},
 	landingSignInBtn: {
 		margin: "0 2rem",
+		color: "#0089FF",
+	},
+	landingIntro: {
+		position: "absolute",
+		bottom: "10%",
+		display: "flex",
+		"& p": {
+			width: "300px",
+		},
 	},
 });
 
@@ -64,7 +78,28 @@ const LandingPage = () => {
 						<Button className={classes.landingSignInBtn}>Sign in</Button>
 					</div>
 				</div>
-				<div className="intro-box"></div>
+				<div className={classes.landingIntro}>
+					<p>
+						My chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here.
+					</p>
+					<p>
+						My chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here.
+					</p>
+					<p>
+						My chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here.
+					</p>
+					<p>
+						My chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here. My chingchongs found them jobs here. My
+						chingchongs found them jobs here.
+					</p>
+				</div>
 			</div>
 		</div>
 	);

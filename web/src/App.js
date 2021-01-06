@@ -1,11 +1,21 @@
 import "./Theme/App.scss";
 import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import LandingPageContainer from "./General/Containers/LandingPage/LandingPageContainer.js";
+import NavigationBarContainer from "./General/Containers/NavigationBar/NavigationBarContainer";
 
 function App() {
 	return (
 		<div className="App">
-			<LandingPageContainer></LandingPageContainer>
+			<Switch>
+				<Route path="/landing">
+					<LandingPageContainer></LandingPageContainer>
+				</Route>
+				<Route path="/" component={NavigationBarContainer}></Route>
+				<Route path="/">
+					<Redirect to="/homepage"></Redirect>
+				</Route>
+			</Switch>
 		</div>
 	);
 }
