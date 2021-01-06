@@ -1,12 +1,11 @@
 import "./Theme/App.scss";
-import PostJobContainer from "./User/Containers/PostJob/PostJobContainer";
-import NavigationBarContainer from "./General/Containers/NavigationBar/NavigationBarContainer";
+import React from "react";
+import LandingPageContainer from "./General/Containers/LandingPage/LandingPageContainer.js";
 
 function App() {
 	return (
 		<div className="App">
-			<NavigationBarContainer></NavigationBarContainer>
-			<PostJobContainer></PostJobContainer>
+			<LandingPageContainer></LandingPageContainer>
 		</div>
 	);
 }
