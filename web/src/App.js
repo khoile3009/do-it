@@ -11,7 +11,9 @@ function App() {
 				<Route path="/landing">
 					<LandingPageContainer></LandingPageContainer>
 				</Route>
-				<Route path="/" component={NavigationBarContainer}></Route>
+				<Route path="/">
+					<NavigationBarContainer></NavigationBarContainer>
+				</Route>
 				<Route path="/">
 					<Redirect to="/homepage"></Redirect>
 				</Route>

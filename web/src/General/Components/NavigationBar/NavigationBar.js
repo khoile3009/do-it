@@ -1,5 +1,8 @@
 import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
+import { withRouter } from "react-router-dom";
+
+// AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,7 +18,23 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
+// AppDrawer Dependencies
+import clsx from "clsx";
+import Drawer from "@material-ui/core/Drawer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+
+const drawerWidth = 480;
+
 const useStyles = makeStyles((theme) => ({
+	// Navigation bar main styling
 	root: {
 		background: "#00C77B",
 		position: "sticky",
@@ -82,15 +101,71 @@ const useStyles = makeStyles((theme) => ({
 			display: "none",
 		},
 	},
+	// AppDrawer styles
+	appBarShift: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
+		transition: theme.transitions.create(["margin", "width"], {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
+	hide: {
+		display: "none",
+	},
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+	},
+	drawerHeader: {
+		display: "flex",
+		alignItems: "center",
+		padding: theme.spacing(0, 1),
+		// necessary for content to be below app bar
+		...theme.mixins.toolbar,
+		justifyContent: "flex-end",
+		background: "#39A77D",
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3),
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginLeft: -drawerWidth,
+	},
+	contentShift: {
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginLeft: 0,
+	},
+	// Mail and Notification styles
 }));
 
-export default function PrimaryAppBar() {
+const PrimaryAppBar = (props) => {
 	const classes = useStyles();
+	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+	const [openDrawer, setOpenDrawer] = React.useState(false);
+
+	const handleDrawerOpen = () => {
+		setOpenDrawer(true);
+	};
+
+	const handleDrawerClose = () => {
+		setOpenDrawer(false);
+	};
 
 	const handleProfileMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -109,16 +184,31 @@ export default function PrimaryAppBar() {
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
+	const handleLogoClick = (event) => {
+		event.preventDefault();
+		props.history.push("/");
+	};
+
+	const handleMailOpen = (event) => {
+		event.preventDefault();
+	};
+
+	const handleNotificationOpen = (event) => {
+		event.preventDefault();
+	};
+
 	const menuId = "primary-search-account-menu";
+
 	const renderMenu = (
 		<Menu
 			anchorEl={anchorEl}
-			anchorOrigin={{ vertical: "top", horizontal: "right" }}
+			anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 			id={menuId}
 			keepMounted
-			transformOrigin={{ vertical: "top", horizontal: "right" }}
+			transformOrigin={{ vertical: "top", horizontal: "center" }}
 			open={isMenuOpen}
 			onClose={handleMenuClose}
+			getContentAnchorEl={null}
 		>
 			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -168,19 +258,31 @@ export default function PrimaryAppBar() {
 
 	return (
 		<div className={classes.grow}>
-			<AppBar className={classes.root} position="static">
+			<CssBaseline />
+			<AppBar
+				className={clsx(classes.root, { [classes.appBarShift]: openDrawer })}
+				position="static"
+			>
 				<Toolbar>
 					<IconButton
 						edge="start"
 						className={classes.menuButton}
 						color="inherit"
 						aria-label="open drawer"
+						onClick={handleDrawerOpen}
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography className={classes.title} variant="h6" noWrap>
+
+					<Typography
+						className={classes.title}
+						variant="h6"
+						noWrap
+						onClick={handleLogoClick}
+					>
 						Do It
 					</Typography>
+
 					<div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
@@ -196,12 +298,20 @@ export default function PrimaryAppBar() {
 					</div>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-						<IconButton aria-label="show 4 new mails" color="inherit">
+						<IconButton
+							onClick={handleMailOpen}
+							aria-label="show 4 new mails"
+							color="inherit"
+						>
 							<Badge badgeContent={0} color="secondary">
 								<MailIcon />
 							</Badge>
 						</IconButton>
-						<IconButton aria-label="show 17 new notifications" color="inherit">
+						<IconButton
+							onClick={handleNotificationOpen}
+							aria-label="show 17 new notifications"
+							color="inherit"
+						>
 							<Badge badgeContent={0} color="secondary">
 								<NotificationsIcon />
 							</Badge>
@@ -232,6 +342,50 @@ export default function PrimaryAppBar() {
 			</AppBar>
 			{renderMobileMenu}
 			{renderMenu}
+			<Drawer
+				className={classes.drawer}
+				variant="persistent"
+				anchor="left"
+				open={openDrawer}
+				classes={{
+					paper: classes.drawerPaper,
+				}}
+			>
+				<div className={classes.drawerHeader}>
+					<IconButton onClick={handleDrawerClose}>
+						{theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+					</IconButton>
+				</div>
+				<Divider />
+				<List>
+					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+				<Divider />
+				<List>
+					{["All mail", "Trash", "Spam"].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+			</Drawer>
+			<main
+				className={clsx(classes.content, {
+					[classes.contentShift]: openDrawer,
+				})}
+			></main>
 		</div>
 	);
-}
+};
+
+export default withRouter(PrimaryAppBar);
