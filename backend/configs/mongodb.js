@@ -4,5 +4,5 @@ console.log("mongodb+srv://" + MONGO_USERNAME +":" + MONGO_PASSWORD + "@doit.ddv
 
 
 module.exports = {
-    MONGODB : "mongodb+srv://" + MONGO_USERNAME +":" + MONGO_PASSWORD + "@doit.ddvue.mongodb.net/test?retryWrites=true&w=majority"
+    MONGODB : "mongodb+srv://" + MONGO_USERNAME +":" + MONGO_PASSWORD + "@cluster0.uvvnb.mongodb.net/test?retryWrites=true&w=majority"
 }
