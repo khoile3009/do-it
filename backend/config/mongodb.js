@@ -1,3 +1,6 @@
+const {MONGO_USERNAME, MONGO_PASSWORD} = require("../../config")
+
+
 module.exports = {
-    MONGODB : "mongodb+srv://khoileminh309:Steven309!@doit.ddvue.mongodb.net/test?retryWrites=true&w=majority"
+    MONGODB : "mongodb+srv://" + MONGO_USERNAME +":" + MONGO_PASSWORD + "@doit.ddvue.mongodb.net/test?retryWrites=true&w=majority"
 }
