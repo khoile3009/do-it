@@ -2,7 +2,7 @@
 const User = require("../models/user");
 
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config/jwtConfig');
+const { jwtSecret } = require('../configs/jwtConfig');
 
 
 const emailExists = async (email) => {

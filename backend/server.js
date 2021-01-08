@@ -2,12 +2,11 @@ const {ApolloServer} = require('apollo-server-express');
 
 const express = require('express');
 const mongoose    = require("mongoose");
-const passport = require("passport");
-const passportLocal = require("passport-local").Strategy;
 
 
 
-const {MONGODB} = require("./config");
+
+const {MONGODB} = require("./configs");
 
 
 const typeDefs = require("./typedefs");
@@ -15,8 +14,7 @@ const resolvers = require("./resolvers");
 const contexts = require("./contexts");
 
 
-const User = require('./models/user'); 
-
+console.log(MONGODB)
 // mongoose setup
 mongoose.connect(
     MONGODB, 

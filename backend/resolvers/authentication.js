@@ -6,7 +6,7 @@ const User = require("../models/user");
 const SALT_ROUNDS = 12;
 
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config/jwtConfig')
+const { jwtSecret } = require('../configs/jwtConfig')
 
 
 const authentication = {
