@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
 		display: "none",
 		[theme.breakpoints.up("sm")]: {
 			display: "block",
+			"&:hover": {
+				cursor: "pointer",
+			},
 		},
 	},
 	search: {
@@ -116,9 +119,13 @@ const useStyles = makeStyles((theme) => ({
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
+		"& > *": {
+			color: "#ffffff",
+		},
 	},
 	drawerPaper: {
 		width: drawerWidth,
+		background: "#39A77D",
 	},
 	drawerHeader: {
 		display: "flex",
@@ -127,7 +134,9 @@ const useStyles = makeStyles((theme) => ({
 		// necessary for content to be below app bar
 		...theme.mixins.toolbar,
 		justifyContent: "flex-end",
-		background: "#39A77D",
+	},
+	drawerIcons: {
+		color: "#ffffff",
 	},
 	content: {
 		flexGrow: 1,
@@ -196,6 +205,9 @@ const PrimaryAppBar = (props) => {
 	const handleNotificationOpen = (event) => {
 		event.preventDefault();
 	};
+	const handleMailClose = (event) => {};
+
+	const handleNotificationClose = (event) => {};
 
 	const menuId = "primary-search-account-menu";
 
@@ -216,6 +228,7 @@ const PrimaryAppBar = (props) => {
 	);
 
 	const mobileMenuId = "primary-search-account-menu-mobile";
+
 	const renderMobileMenu = (
 		<Menu
 			anchorEl={mobileMoreAnchorEl}
@@ -256,9 +269,16 @@ const PrimaryAppBar = (props) => {
 		</Menu>
 	);
 
+	const renderNotificationDropdown = <></>;
+
+	const renderMailDropdown = <></>;
+
 	return (
 		<div className={classes.grow}>
 			<CssBaseline />
+			{/*
+				This is the main app bar at the top
+			*/}
 			<AppBar
 				className={clsx(classes.root, { [classes.appBarShift]: openDrawer })}
 				position="static"
@@ -342,6 +362,11 @@ const PrimaryAppBar = (props) => {
 			</AppBar>
 			{renderMobileMenu}
 			{renderMenu}
+
+			{/*
+				This part belongs to left-side app drawer
+			*/}
+
 			<Drawer
 				className={classes.drawer}
 				variant="persistent"
@@ -360,7 +385,7 @@ const PrimaryAppBar = (props) => {
 				<List>
 					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
 						<ListItem button key={text}>
-							<ListItemIcon>
+							<ListItemIcon className={classes.drawerIcons}>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon>
 							<ListItemText primary={text} />
@@ -371,7 +396,7 @@ const PrimaryAppBar = (props) => {
 				<List>
 					{["All mail", "Trash", "Spam"].map((text, index) => (
 						<ListItem button key={text}>
-							<ListItemIcon>
+							<ListItemIcon className={classes.drawerIcons}>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon>
 							<ListItemText primary={text} />
