@@ -3,4 +3,9 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
-admin.site.register([models.User, models.Customer, models.Provider])
+for model in [
+    models.User,
+    models.Customer,
+    models.Provider,
+]:
+    admin.site.register(model)
