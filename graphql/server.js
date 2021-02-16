@@ -1,12 +1,12 @@
-const {ApolloServer} = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 
 const express = require('express');
-const mongoose    = require("mongoose");
+const mongoose = require("mongoose");
 
 
 
 
-const {MONGODB} = require("./configs");
+const { MONGODB } = require("./configs");
 
 
 const typeDefs = require("./typedefs");
@@ -17,8 +17,8 @@ const contexts = require("./contexts");
 console.log(MONGODB)
 // mongoose setup
 mongoose.connect(
-    MONGODB, 
-    {useNewUrlParse: true, useFindAndModify: true, useCreateIndex: true}
+    MONGODB,
+    { useNewUrlParse: true, useFindAndModify: true, useCreateIndex: true }
 ).then(
     (val) => {
         console.log('Success');
@@ -28,7 +28,7 @@ mongoose.connect(
 
 const server = new ApolloServer(
     {
-        typeDefs, 
+        typeDefs,
         resolvers,
         context: contexts
     }
@@ -41,7 +41,7 @@ const app = express();
 
 // passport.serializeUser(User.serializeUser()); 
 // passport.deserializeUser(User.deserializeUser()); 
-  
+
 // const LocalStrategy = require('passport-local').Strategy; 
 // passport.use(new LocalStrategy(User.authenticate())); 
 
@@ -49,5 +49,5 @@ const app = express();
 server.applyMiddleware({ app });
 
 app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
