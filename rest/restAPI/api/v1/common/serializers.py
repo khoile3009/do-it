@@ -1,13 +1,13 @@
-from rest_framework import serialzers
+from rest_framework import serializers
 
 from common import models
 
 
-class TagSerializer(serialzers.ModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Tag
         fields = [
-            pk,
-            name,
+            "pk",
+            "name",
         ]

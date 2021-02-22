@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+for model in [
+    models.Tag,
+]:
+    admin.site.register(model)
