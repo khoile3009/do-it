@@ -7,7 +7,12 @@ verify_ssl = true
 
 [packages]
 django = "*"
+cryptography = "*"
 djangorestframework = "*"
+django-cors-headers = "*"
+drf-jwt = "*"
+pyjwt = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

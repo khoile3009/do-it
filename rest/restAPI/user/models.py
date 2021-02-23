@@ -5,16 +5,25 @@ from django.utils import timezone
 
 
 class User(auth_models.AbstractUser):
-    phone_number = models.CharField(
-        max_length=20,
-        unique=True,
-    )
-    address = models.TextField(blank=True)
-    birthday = models.DateField(default=timezone.now)
-    rating = models.DecimalField(max_digits=2, decimal_places=1, null=True)
+    pass
 
-    class Meta:
-        pass
+    # phone_number = models.CharField(
+    #     max_length=20,
+    #     unique=True,
+    #     default=None
+    # )
+    # address = models.TextField(blank=True)
+    # birthday = models.DateField(default=timezone.now)
+    # rating = models.DecimalField(max_digits=2, decimal_places=1, null=True)
+
+    # class Meta:
+    #     pass
+
+# TODO: class user profile
+
+
+# class UserProfile(models.Model):
+#     pass
 
 
 class Customer(models.Model):
