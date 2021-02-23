@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+for model in [
+    models.Job,
+    models.PayRange,
+]:
+    admin.site.register(model)

@@ -4,5 +4,9 @@ from django.contrib.auth.admin import UserAdmin
 from . import models
 
 # Register your models here.
-admin.site.register([models.Customer, models.Provider])
-admin.site.register(models.User, UserAdmin)
+for model in [
+    models.User,
+    models.Customer,
+    models.Provider,
+]:
+    admin.site.register(model)
