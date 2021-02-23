@@ -1,12 +1,11 @@
 from rest_framework import generics, permissions
 
 from . import serializers
-
 from common import models
 
 
 class TagBase():
-    serializer_class = serializers.TagSerializer
+    serializer_class = serializers.Tag
     # permission_classes = [permissions.IsAuthenticated]
 
 

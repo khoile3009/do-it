@@ -85,6 +85,7 @@ class Rating(models.Model):
     message = models.TextField(blank=True)
 
 
+# should move to user models instead
 class ReportTicket(models.Model):
     # TODO: discuss how to handle on_delete
     sender = models.ForeignKey(
@@ -105,6 +106,7 @@ class ReportTicket(models.Model):
     message = models.TextField(blank=True)
 
 
+# Should move to user models instead
 class Block(models.Model):
     blocker = models.ForeignKey(
         user_models.User, 

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from common import models
 
 
-class TagSerializer(serializers.ModelSerializer):
+class Tag(serializers.ModelSerializer):
 
     class Meta:
         model = models.Tag
