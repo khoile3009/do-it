@@ -33,7 +33,7 @@ class Customer(models.Model):
 
 class Provider(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    SKILL_DEFAULT = "no_skill"
+    SKILL_DEFAULT = "Boob"
     SKILL_CHOICES = (
         (SKILL_DEFAULT, "No Skill"),
     )
