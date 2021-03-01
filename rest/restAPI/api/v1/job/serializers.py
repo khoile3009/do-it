@@ -16,7 +16,7 @@ class PayRange(serializers.ModelSerializer):
 
 class Job(serializers.ModelSerializer):
     pay_range = PayRange()
-    rating = serializers.SerializerMethodField(many=True)
+    rating = serializers.SerializerMethodField()
 
     class Meta:
         model = job_models.Job
@@ -26,10 +26,12 @@ class Job(serializers.ModelSerializer):
             "description",
             "pay_range",
             "is_finished",
+            "is_cancelled",
             "rating",
         ]
 
-    
+    def get_rating(self, obj):
+        return None 
 
 
 class Application(serializers.ModelSerializer):

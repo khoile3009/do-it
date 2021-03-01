@@ -13,6 +13,8 @@ django-cors-headers = "*"
 drf-jwt = "*"
 pyjwt = "*"
 requests = "*"
+six = "*"
+certifi = "*"
 
 [requires]
 python_version = "3.8"

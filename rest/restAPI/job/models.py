@@ -35,13 +35,14 @@ class Job(models.Model):
         user_models.Customer, 
         on_delete=models.CASCADE,
     )
-    title = models.CharField(max_length=255, blank=True)
-    description = models.TextField()
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
     pay_range = models.ForeignKey(
         PayRange,
         on_delete=models.CASCADE,
     )
     is_finished = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False)
 
 
 class Application(models.Model):
