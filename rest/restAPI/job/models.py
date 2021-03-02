@@ -4,7 +4,6 @@ from django.utils import timezone
 from user import models as user_models
 
 
-
 OPTION_GOOD = "good"
 OPTION_BAD = "bad"
 OPTION_CHOICES = (
@@ -32,7 +31,7 @@ class PayRange(models.Model):
 
 class Job(models.Model):
     customer = models.ForeignKey(
-        user_models.Customer, 
+        user_models.User, 
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=255)
@@ -47,13 +46,13 @@ class Job(models.Model):
 
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    provider = models.ForeignKey(user_models.Provider, on_delete=models.CASCADE)
+    provider = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
     time = models.DateTimeField(default=timezone.now)
 
 
 class Request(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    provider = models.ForeignKey(user_models.Provider, on_delete=models.CASCADE)
+    provider = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
     time = models.DateTimeField(default=timezone.now)
 
 

@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 import json
-from authentication.utils import CONFIGURE_AUTH0
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +28,7 @@ SECRET_KEY = ')d)w5^87eg91*gwn960vr)od5k_qrzc8-@^=gz#(%wfr#5u5xg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,7 +45,8 @@ INSTALLED_APPS = [
     'job',
     'common',
     'api',
-    'authentication'
+    'corsheaders',
+    'knox',
 ]
 
 
@@ -59,29 +59,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # added to solve CORS
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication', 
+    ]
 }
-
-# JWT_AUTH = {
-#     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-#         'authentication.utils.jwt_get_username_from_payload_handler',
-#     'JWT_DECODE_HANDLER':
-#         'authentication.utils.jwt_decode_token',
-#     'JWT_ALGORITHM': 'RS256',
-#     'JWT_AUDIENCE': 'https://doitapplication.us.auth0.com/api/v2/',
-#     'JWT_ISSUER': 'https://doitapplication.us.auth0.com/',
-#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-# }
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -159,20 +144,4 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = "user.User"
 
-AUTH0_DOMAIN = 'doitapplication.us.auth0.com'
-API_IDENTIFIER = 'https://doitapplication.us.auth0.com/api/v2/'
-PUBLIC_KEY = None
-JWT_ISSUER = None
-
-
-CONFIGURE_AUTH0(AUTH0_DOMAIN)
-
-JWT_AUTH = {
-    'JWT_PAYLOAD_GET_USERNAME_HANDLER': 'authentication.utils.jwt_get_username_from_payload_handler',
-    'JWT_DECODE_HANDLER': 'authentication.utils.jwt_decode_token',
-    'JWT_PUBLIC_KEY': PUBLIC_KEY,
-    'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': API_IDENTIFIER,
-    'JWT_ISSUER': JWT_ISSUER,
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-}
+CORS_ORIGIN_ALLOW_ALL = True  # added to solve CORS
