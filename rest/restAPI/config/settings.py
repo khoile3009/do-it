@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'user',
     'job',
     'common',
-    # 'api',
-    'authentication'
+    'api',
+    'corsheaders',
+    'knox',
 ]
 
 
@@ -62,22 +63,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # added to solve CORS
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['knox.auth.TokenAuthentication', ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication', 
+    ]
 }
-
-# JWT_AUTH = {
-#     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-#         'authentication.utils.jwt_get_username_from_payload_handler',
-#     'JWT_DECODE_HANDLER':
-#         'authentication.utils.jwt_decode_token',
-#     'JWT_ALGORITHM': 'RS256',
-#     'JWT_AUDIENCE': 'https://doitapplication.us.auth0.com/api/v2/',
-#     'JWT_ISSUER': 'https://doitapplication.us.auth0.com/',
-#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-# }
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
