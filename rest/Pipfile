@@ -13,6 +13,10 @@ django-cors-headers = "*"
 drf-jwt = "*"
 pyjwt = "*"
 requests = "*"
+knox = "*"
+jinja2 = "*"
+boto3 = "*"
+django-rest-knox = "*"
 
 [requires]
 python_version = "3.8"
