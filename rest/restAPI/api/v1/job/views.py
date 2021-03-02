@@ -5,9 +5,9 @@ from job import models as job_models
 
 
 class JobBase():
-    query_set = job_models.Job.objects.all()
+    queryset = job_models.Job.objects.all()
     serializer_class = serializers.Job
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class JobCreate(JobBase, generics.CreateAPIView):

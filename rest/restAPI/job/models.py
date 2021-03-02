@@ -43,6 +43,9 @@ class Job(models.Model):
     is_finished = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
 
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
