@@ -1,3 +1,9 @@
+import NavigationBar from "../General/Containers/NavigationBar/NavigationBarContainer";
+
 export default function Home() {
-	return <div></div>;
+	return (
+		<div>
+			<NavigationBar />
+		</div>
+	);
 }
