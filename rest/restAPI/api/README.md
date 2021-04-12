@@ -1,4 +1,4 @@
-# To register using Postman, create a POST api/auth/register with body of something like this
+# To register using Postman, create a POST api/v1/auth/register with body of something like this
 
 ```json
 {
@@ -10,7 +10,7 @@
 }
 ```
 
-# To login using Postman, create a POST api/auth/login with body of something like this
+# To login using Postman, create a POST api/v1/auth/login with body of something like this
 
 ```json
 {
@@ -20,7 +20,7 @@
 ```
 
 
-# To get user from the token, put the token in header "Authorization" and GET /api/auth/user
+# To get user from the token, put the token in header "Authorization" and GET /api/v1/auth/user
 
 ```json
 Headers {
@@ -28,7 +28,7 @@ Headers {
 }
 ```
 
-# To logout using Postman, create a POST api/auth/login with body of something like this
+# To logout using Postman, create a POST api/v1/auth/login with body of something like this
 
 ```json
 {
