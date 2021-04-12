@@ -5,6 +5,8 @@ from django.utils import timezone
 
 from common import models as common_models
 
+from datetime import date
+
 
 class User(auth_models.AbstractUser):
     SKILL_DEFAULT = "no_skill"
@@ -18,7 +20,7 @@ class User(auth_models.AbstractUser):
         blank=True,
     )
     address = models.TextField(blank=True)
-    birthday = models.DateField(default=timezone.now)
+    birthday = models.DateField(default=date.today)
     # Basically hard-coded tags
     skill = models.CharField(
         max_length=255,
