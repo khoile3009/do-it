@@ -1,6 +1,6 @@
 import React from "react";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 
 // AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
@@ -413,4 +413,4 @@ const PrimaryAppBar = (props) => {
 	);
 };
 
-export default withRouter(PrimaryAppBar);
+export default PrimaryAppBar;
