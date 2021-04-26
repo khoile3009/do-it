@@ -22,6 +22,7 @@ class Job(serializers.ModelSerializer):
         model = job_models.Job
         fields = [
             "pk",
+            "customer",
             "title",
             "description",
             "pay_range",

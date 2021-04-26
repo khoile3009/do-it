@@ -20,6 +20,8 @@ class PayRange(models.Model):
         (CURRENCY_USD, "Đô La Mỹ")
     )
 
+    # TODO: implement django-exchange here for currency conversion
+
     currency = models.CharField(
         max_length=140,
         choices=CURRENCY_CHOICES, 

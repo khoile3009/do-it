@@ -1,13 +1,13 @@
 from rest_framework import generics, permissions
 
 from . import serializers
-from job import models as job_models
+from job import models
 
 
 class JobBase():
-    query_set = job_models.Job.objects.all()
+    queryset = models.Job.objects.all()
     serializer_class = serializers.Job
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class JobCreate(JobBase, generics.CreateAPIView):
@@ -28,7 +28,7 @@ class JobDetail(JobBase, generics.RetrieveAPIView):
 class JobList(JobBase, generics.ListAPIView):
     
     def get_queryset(self):
-        queryset = job_models.Job.objects.all()
+        queryset = models.Job.objects.all()
         title_include = self.request.query_params.get("title")
         description_include = self.request.query_params.get("description")
         if title_include is not None:
@@ -37,6 +37,21 @@ class JobList(JobBase, generics.ListAPIView):
             queryset = queryset.filter(description__contains=description_include)
 
         return queryset
+
+
+class PayRangeBase():
+    queryset = models.PayRange.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.PayRange
+
+
+class PayRangeCreate(PayRangeBase, generics.CreateAPIView):
+    pass
+
+
+class PayRangeList(PayRangeBase, generics.ListAPIView):
+    pass
+
 
 
 
