@@ -1,15 +1,15 @@
 import axios from '../../axios-orders';
 
 import * as actionTypes from './actionTypes';
+import { getLocalItem, setLocalItem, removeLocalItem } from '../../Utils/LocalStorage';
 
-
-export const authStart = () => {
+export function authStart() {
     return {
         type: actionTypes.AUTH_START
     };
 };
 
-export const authSuccess = (token, userId, username, fullname) => {
+export function authSuccess(token, userId, username, fullname) {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
@@ -19,27 +19,27 @@ export const authSuccess = (token, userId, username, fullname) => {
     };
 };
 
-export const authFail = (error) => {
+export function authFail(error) {
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
     };
 };
 
-export const clearError = () => {
+export function clearError() {
     return {
         type: actionTypes.CLEAR_ERROR,
     }
 }
 
-export const logout = () => {
-    localStorage.removeItem('TOKEN');
+export function logout() {
+
     return {
         type: actionTypes.AUTH_LOGOUT
     };
 };
 
-export const signin = (username, password, remember) => {
+export function signin(username, password, remember) {
     return dispatch => {
         dispatch(authStart())
         const authData = {
@@ -51,7 +51,7 @@ export const signin = (username, password, remember) => {
             .then(response => {
                 console.log(response);
                 if (remember === true) {
-                    localStorage.setItem('TOKEN', response.data.token);
+                    setLocalItem('TOKEN', response.data.token);
                 }
                 dispatch(authSuccess(response.data.token, response.data.user.id, response.data.user.username, response.data.user.full_name));
                 dispatch(hideModal());
@@ -62,7 +62,7 @@ export const signin = (username, password, remember) => {
     };
 };
 
-export const register = (username, email, password, first_name, last_name, remember) => {
+export function register(username, email, password, first_name, last_name, remember) {
     return dispatch => {
         dispatch(authStart())
         const authData = {
@@ -79,7 +79,7 @@ export const register = (username, email, password, first_name, last_name, remem
             .then(response => {
                 console.log(response);
                 if (remember === true) {
-                    localStorage.setItem('TOKEN', response.data.token);
+                    setLocalItem('TOKEN', response.data.token);
                 }
                 dispatch(authSuccess(response.data.token, response.data.user.id, response.data.user.username, response.data.user.full_name));
                 dispatch(showInfoModal());
@@ -91,7 +91,7 @@ export const register = (username, email, password, first_name, last_name, remem
 }
 
 
-export const signout = (token) => {
+export function signout(token) {
     return dispatch => {
         console.log('Token ' + token)
         let headers = {
@@ -104,16 +104,18 @@ export const signout = (token) => {
         axios.post(url, data, { headers: headers })
             .then(response => {
                 console.log(response);
+                removeLocalItem('TOKEN');
                 dispatch(logout())
             })
             .catch(err => {
                 console.log(err)
+                removeLocalItem('TOKEN');
                 dispatch(logout())
             })
     }
 }
 
-export const retrieveUserFromToken = (token) => {
+export function retrieveUserFromToken(token) {
     return dispatch => {
         console.log('Token ' + token)
         dispatch(authStart())
@@ -130,7 +132,7 @@ export const retrieveUserFromToken = (token) => {
             })
             .catch(err => {
                 console.log(err)
-                localStorage.removeItem('TOKEN')
+                removeLocalItem('TOKEN')
                 dispatch(authFail(null))
             })
     }

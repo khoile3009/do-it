@@ -1,8 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
-
+import { getLocalItem } from '../../Utils/LocalStorage'
 const initialState = {
-    token: localStorage.getItem('TOKEN'),
+    token: getLocalItem('TOKEN'),
     userId: null,
     username: null,
     fullname: null,
@@ -10,40 +10,40 @@ const initialState = {
     loading: false
 };
 
-const authStart = ( state, action ) => {
-    return updateObject( state, { error: null, loading: true } );
+function authStart(state, action) {
+    return updateObject(state, { error: null, loading: true });
 };
 
-const authSuccess = (state, action) => {
-    return updateObject( state, { 
+function authSuccess(state, action) {
+    return updateObject(state, {
         token: action.token,
         userId: action.userId,
         username: action.username,
         fullname: action.fullname,
         error: null,
         loading: false
-     } );
+    });
 };
 
-const clearError = (state, action) => {
-    return updateObject( state, {
+function clearError(state, action) {
+    return updateObject(state, {
         error: null,
     })
 }
 
-const authFail = (state, action) => {
-    return updateObject( state, {
+function authFail(state, action) {
+    return updateObject(state, {
         error: action.error,
         loading: false
     });
 };
 
-const authLogout = (state, action) => {
+function authLogout(state, action) {
     return updateObject(state, { token: null, userId: null, username: null });
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
+function reducer(state = initialState, action) {
+    switch (action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);

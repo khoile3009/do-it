@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const LandingPage = () => {
+function LandingPage() {
 	const classes = useStyles();
 	return (
 		<div className={classes.landingPage}>

@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
 	// Mail and Notification styles
 }));
 
-const PrimaryAppBar = (props) => {
+function PrimaryAppBar(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -205,9 +205,9 @@ const PrimaryAppBar = (props) => {
 	const handleNotificationOpen = (event) => {
 		event.preventDefault();
 	};
-	const handleMailClose = (event) => {};
+	const handleMailClose = (event) => { };
 
-	const handleNotificationClose = (event) => {};
+	const handleNotificationClose = (event) => { };
 
 	const menuId = "primary-search-account-menu";
 
