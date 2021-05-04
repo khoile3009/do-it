@@ -1,86 +1,86 @@
-// import { createStore, applyMiddleware, compose } from 'redux';
 
-// import createSagaMiddleware from 'redux-saga';
-// import { persistStore } from 'redux-persist';
+// import logger from 'redux-logger';
+// import { applyMiddleware, createStore } from 'redux';
+// import { createWrapper } from 'next-redux-wrapper';
+
+// const SET_CLIENT_STATE = 'SET_CLIENT_STATE';
 
 // import rootReducer from './reducers/rootReducers';
 
-// export default function (initialState) {
-//     let store;
+// const makeConfiguredStore = (reducer) =>
+//     createStore(reducer, undefined, applyMiddleware(logger));
 
-//     const sagaMiddleware = createSagaMiddleware();
+// const makeStore = () => {
 
-//     const isClient = typeof window !== 'undefined';
+//     const isServer = typeof window === 'undefined';
 
-//     if (isClient) {
-//         const { persistReducer } = require('redux-persist');
+//     if (isServer) {
+
+//         return makeConfiguredStore(rootReducer);
+
+//     } else {
+
+//         // we need it only on client side
+//         const { persistStore, persistReducer } = require('redux-persist');
 //         const storage = require('redux-persist/lib/storage').default;
 
 //         const persistConfig = {
-//             key: 'root',
+//             key: 'nextjs',
+//             whitelist: ['fromClient'], // make sure it does not clash with server keys
 //             storage
 //         };
 
-//         store = createStore(
-//             persistReducer(persistConfig, rootReducer),
-//             compose(
-//                 applyMiddleware(sagaMiddleware)
-//             )
+//         const persistedReducer = persistReducer(persistConfig, rootReducer);
+//         const store = makeConfiguredStore(persistedReducer);
 
-//         );
+//         store.__persistor = persistStore(store); // Nasty hack
 
-//         store.__PERSISTOR = persistStore(store);
-//     } else {
-//         store = createStore(
-//             rootReducer,
-//             compose(
-//                 applyMiddleware(sagaMiddleware)
-//             )
-//         );
+//         return store;
 //     }
-
-//     return store;
 // };
 
-import logger from 'redux-logger';
-import { applyMiddleware, createStore } from 'redux';
-import { createWrapper } from 'next-redux-wrapper';
+// export const wrapper = createWrapper(makeStore);
 
-const SET_CLIENT_STATE = 'SET_CLIENT_STATE';
+import { useMemo } from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunkMiddleware from 'redux-thunk'
+import reducers from './reducers/rootReducers'
 
-import rootReducer from './reducers/rootReducers';
+let store
 
-const makeConfiguredStore = (reducer) =>
-    createStore(reducer, undefined, applyMiddleware(logger));
+function initStore(initialState) {
+    return createStore(
+        reducers,
+        initialState,
+        composeWithDevTools(applyMiddleware(thunkMiddleware))
+    )
+}
 
-const makeStore = () => {
 
-    const isServer = typeof window === 'undefined';
+export const initializeStore = (preloadedState) => {
+    let _store = store ?? initStore(preloadedState)
 
-    if (isServer) {
-
-        return makeConfiguredStore(rootReducer);
-
-    } else {
-
-        // we need it only on client side
-        const { persistStore, persistReducer } = require('redux-persist');
-        const storage = require('redux-persist/lib/storage').default;
-
-        const persistConfig = {
-            key: 'nextjs',
-            whitelist: ['fromClient'], // make sure it does not clash with server keys
-            storage
-        };
-
-        const persistedReducer = persistReducer(persistConfig, rootReducer);
-        const store = makeConfiguredStore(persistedReducer);
-
-        store.__persistor = persistStore(store); // Nasty hack
-
-        return store;
+    // After navigating to a page with an initial Redux state, merge that state
+    // with the current state in the store, and create a new store
+    if (preloadedState && store) {
+        _store = initStore({
+            ...store.getState(),
+            ...preloadedState,
+        })
+        // Reset the current store
+        store = undefined
     }
-};
 
-export const wrapper = createWrapper(makeStore);
+    // For SSG and SSR always create a new store
+    if (typeof window === 'undefined') return _store
+    // Create the store once in the client
+    if (!store) store = _store
 
+    return _store
+}
+
+export function useStore(initialState) {
+    const store = useMemo(() => initializeStore(initialState), [initialState])
+    return store
+}

@@ -46,7 +46,7 @@ export function signin(username, password, remember) {
             username: username,
             password: password,
         };
-        let url = 'api/user/auth/signin';
+        let url = 'api/v1/auth/signin';
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
@@ -73,7 +73,7 @@ export function register(username, email, password, first_name, last_name, remem
             last_name: last_name
         }
         console.log(authData)
-        let url = 'api/user/auth/register';
+        let url = 'api/v1/auth/register';
 
         axios.post(url, authData)
             .then(response => {
@@ -100,7 +100,7 @@ export function signout(token) {
         }
         let data = null
         console.log(headers)
-        let url = 'api/user/auth/signout';
+        let url = 'api/v1/auth/signout';
         axios.post(url, data, { headers: headers })
             .then(response => {
                 console.log(response);
@@ -124,7 +124,7 @@ export function retrieveUserFromToken(token) {
             'Authorization': 'Token ' + token
         }
 
-        let url = 'api/user/auth/user';
+        let url = 'api/v1/user/retrieve';
         axios.get(url, { headers: headers })
             .then(response => {
                 console.log(response);
@@ -132,7 +132,8 @@ export function retrieveUserFromToken(token) {
             })
             .catch(err => {
                 console.log(err)
-                removeLocalItem('TOKEN')
+                // TODO: Turn this back
+                // removeLocalItem('TOKEN')
                 dispatch(authFail(null))
             })
     }
