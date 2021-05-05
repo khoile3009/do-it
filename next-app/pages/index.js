@@ -1,4 +1,4 @@
-import NavigationBar from "../General/Containers/NavigationBar/NavigationBarContainer";
+import NavigationBar from "../General/NavigationBar/NavigationBar";
 
 export default function Home() {
 	return (

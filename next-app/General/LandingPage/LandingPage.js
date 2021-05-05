@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function LandingPage() {
+export default function LandingPage(props) {
 	const classes = useStyles();
 	return (
 		<div className={classes.landingPage}>
@@ -80,29 +80,31 @@ function LandingPage() {
 				</div>
 				<div className={classes.landingIntro}>
 					<p>
-						My chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here.
+						Sunt sint laboris ad eu exercitation esse dolore dolore incididunt. Ullamco
+						fugiat magna veniam sit ut sint nostrud nostrud esse magna. Ipsum ad sit
+						elit magna irure occaecat nulla duis laboris. Do minim laboris occaecat qui
+						sunt esse magna ea cillum eu proident incididunt.
 					</p>
 					<p>
-						My chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here.
+						Sunt sint laboris ad eu exercitation esse dolore dolore incididunt. Ullamco
+						fugiat magna veniam sit ut sint nostrud nostrud esse magna. Ipsum ad sit
+						elit magna irure occaecat nulla duis laboris. Do minim laboris occaecat qui
+						sunt esse magna ea cillum eu proident incididunt.
 					</p>
 					<p>
-						My chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here.
+						Sunt sint laboris ad eu exercitation esse dolore dolore incididunt. Ullamco
+						fugiat magna veniam sit ut sint nostrud nostrud esse magna. Ipsum ad sit
+						elit magna irure occaecat nulla duis laboris. Do minim laboris occaecat qui
+						sunt esse magna ea cillum eu proident incididunt.
 					</p>
 					<p>
-						My chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here. My chingchongs found them jobs here. My
-						chingchongs found them jobs here.
+						Sunt sint laboris ad eu exercitation esse dolore dolore incididunt. Ullamco
+						fugiat magna veniam sit ut sint nostrud nostrud esse magna. Ipsum ad sit
+						elit magna irure occaecat nulla duis laboris. Do minim laboris occaecat qui
+						sunt esse magna ea cillum eu proident incididunt.
 					</p>
 				</div>
 			</div>
 		</div>
 	);
-};
-
-export default LandingPage;
+}

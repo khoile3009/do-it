@@ -1,6 +1,5 @@
 import React from "react";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-// import { withRouter } from "react-router-dom";
 
 // AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
@@ -31,6 +30,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 
+// Style props
 const drawerWidth = 480;
 
 const useStyles = makeStyles((theme) => ({
@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
 	// Mail and Notification styles
 }));
 
-function PrimaryAppBar(props) {
+export default function PrimaryAppBar(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -205,9 +205,9 @@ function PrimaryAppBar(props) {
 	const handleNotificationOpen = (event) => {
 		event.preventDefault();
 	};
-	const handleMailClose = (event) => { };
+	const handleMailClose = (event) => {};
 
-	const handleNotificationClose = (event) => { };
+	const handleNotificationClose = (event) => {};
 
 	const menuId = "primary-search-account-menu";
 
@@ -411,6 +411,4 @@ function PrimaryAppBar(props) {
 			></main>
 		</div>
 	);
-};
-
-export default PrimaryAppBar;
+}
