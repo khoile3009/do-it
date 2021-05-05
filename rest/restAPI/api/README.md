@@ -6,7 +6,8 @@
     "password": "123",
     "first_name": "Khoi",
     "last_name": "Le",
-    "email": "khoibaka@gmail.com"
+    "email": "khoibaka@gmail.com",
+    "phone_number": "123456789",
 }
 ```
 
