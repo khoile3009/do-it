@@ -16,6 +16,7 @@ class User(auth_models.AbstractUser):
 
     phone_number = models.CharField(
         max_length=20,
+        validators=[validators.RegexValidator(regex="^[0-9]*$", message="Phone number can only contain numbers")],
         unique=True,
         blank=True,
     )
