@@ -1,5 +1,6 @@
-import React from "react";
+import { React, useState } from "react";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 // AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
@@ -160,13 +161,16 @@ const useStyles = makeStyles((theme) => ({
 export default function PrimaryAppBar(props) {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+	const state = useState(0);
+	const auth = useSelector((state) => state.auth);
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-	const [openDrawer, setOpenDrawer] = React.useState(false);
+	const [openDrawer, setOpenDrawer] = useState(false);
 
 	const handleDrawerOpen = () => {
 		setOpenDrawer(true);
@@ -222,8 +226,8 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
+			<MenuItem onClick={handleMenuClose}>{auth.userId ? "Profile" : "Sign In"}</MenuItem>
+			<MenuItem onClick={handleMenuClose}>{auth.userId ? "My account" : "Register"}</MenuItem>
 		</Menu>
 	);
 
