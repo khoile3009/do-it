@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
-import { getLocalItem } from '../../Utils/LocalStorage'
+import { getLocalItem } from '../../General/Utils/LocalStorage'
 const initialState = {
     token: getLocalItem('TOKEN'),
     userId: null,

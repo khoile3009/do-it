@@ -1,7 +1,7 @@
 import axios from '../../axios-orders';
 
 import * as actionTypes from './actionTypes';
-import { getLocalItem, setLocalItem, removeLocalItem } from '../../Utils/LocalStorage';
+import { setLocalItem, removeLocalItem } from '../../General/Utils/LocalStorage';
 
 export function authStart() {
     return {
@@ -46,7 +46,7 @@ export function signin(username, password, remember) {
             username: username,
             password: password,
         };
-        let url = 'api/v1/auth/signin';
+        let url = 'api/v1/auth/login';
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
@@ -54,7 +54,6 @@ export function signin(username, password, remember) {
                     setLocalItem('TOKEN', response.data.token);
                 }
                 dispatch(authSuccess(response.data.token, response.data.user.id, response.data.user.username, response.data.user.full_name));
-                dispatch(hideModal());
             })
             .catch(err => {
                 dispatch(authFail("Invalid Credentials"));
@@ -82,7 +81,6 @@ export function register(username, email, password, first_name, last_name, remem
                     setLocalItem('TOKEN', response.data.token);
                 }
                 dispatch(authSuccess(response.data.token, response.data.user.id, response.data.user.username, response.data.user.full_name));
-                dispatch(showInfoModal());
             })
             .catch(err => {
                 dispatch(authFail(err.response.data.error))
@@ -133,7 +131,7 @@ export function retrieveUserFromToken(token) {
             .catch(err => {
                 console.log(err)
                 // TODO: Turn this back
-                // removeLocalItem('TOKEN')
+                removeLocalItem('TOKEN')
                 dispatch(authFail(null))
             })
     }

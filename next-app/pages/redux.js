@@ -11,7 +11,6 @@ const codeStyle = {
 
 const ShowReduxState = () => {
     const state = useSelector((state) => state)
-
     return (
         <>
             <pre style={codeStyle}>
