@@ -61,7 +61,7 @@ export function signin(username, password, remember) {
     };
 };
 
-export function register(username, email, password, first_name, last_name, remember) {
+export function register(username, email, password, first_name, last_name, phone_number, remember) {
     return dispatch => {
         dispatch(authStart())
         const authData = {
@@ -69,7 +69,8 @@ export function register(username, email, password, first_name, last_name, remem
             email: email,
             password: password,
             first_name: first_name,
-            last_name: last_name
+            last_name: last_name,
+            phone_number: phone_number
         }
         console.log(authData)
         let url = 'api/v1/auth/register';
