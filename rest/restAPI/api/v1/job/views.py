@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 
 from . import serializers
 from job import models as job_models
+from api.v1 import pagination
 
 
 class JobBase():
@@ -26,6 +27,7 @@ class JobDetail(JobBase, generics.RetrieveAPIView):
 
 
 class JobList(JobBase, generics.ListAPIView):
+    pagination_class = pagination.JobListPagination
     
     def get_queryset(self):
         queryset = job_models.Job.objects.all()

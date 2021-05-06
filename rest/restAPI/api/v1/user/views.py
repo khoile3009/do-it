@@ -3,6 +3,7 @@ from knox.models import AuthToken
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
+from api.v1 import pagination
 from user import models
 
 
@@ -52,6 +53,7 @@ class UserList(generics.ListAPIView):
         permissions.IsAuthenticated,
     ]
     serializer_class = UserSerializer
+    pagination_class = pagination.UserListPagination
     queryset = models.User.objects.all()
 
 
