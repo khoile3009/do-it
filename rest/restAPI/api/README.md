@@ -21,7 +21,7 @@
 ```
 
 
-# To get user from the token, put the token in header "Authorization" and GET /api/v1/auth/user
+# To get user from the token, put the token in header "Authorization" and GET /api/v1/user/retrieve
 
 ```json
 Headers {
@@ -29,11 +29,10 @@ Headers {
 }
 ```
 
-# To logout using Postman, create a POST api/v1/auth/login with body of something like this
+# To logout using Postman, create a POST api/v1/auth/logout with body of something like this
 
 ```json
-{
-    "username": "bob",
-    "password": "123"
+Headers {
+	"Authorization" : "Token <Token here>"
 }
 ```
