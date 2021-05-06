@@ -36,10 +36,11 @@ class Job(models.Model):
     )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    pay_range = models.ForeignKey(
-        PayRange,
-        on_delete=models.CASCADE,
-    )
+    # PayRange to be handled by 3rd party API 
+    # pay_range = models.ForeignKey(
+    #     PayRange,
+    #     on_delete=models.CASCADE,
+    # )
     is_finished = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)
 
