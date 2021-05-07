@@ -5,7 +5,7 @@ from common import models
 
 
 class TagBase():
-    serializer_class = serializers.Tag
+    serializer_class = serializers.TagSerializer
     queryset = models.Tag.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
