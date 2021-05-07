@@ -272,16 +272,16 @@ export default function RegisterModal(props) {
 					<Button
 						variant="contained"
 						size="large"
-						className={clsx(classes.margin, classes.signUpButtonApple)}
+						className={clsx(classes.margin, classes.signUpButtonLinkedIn)}
 					>
-						Sign up by Apple
+						Sign up by LinkedIn
 					</Button>
 					<Button
 						variant="contained"
 						size="large"
-						className={clsx(classes.margin, classes.signUpButtonLinkedIn)}
+						className={clsx(classes.margin, classes.signUpButtonApple)}
 					>
-						Sign up by LinkedIn
+						Sign up by Apple
 					</Button>
 				</FormGroup>
 			</Dialog>
