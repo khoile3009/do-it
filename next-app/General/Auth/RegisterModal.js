@@ -113,7 +113,6 @@ export default function RegisterModal(props) {
 	const [first_name, changeFirstName] = useState("");
 	const [last_name, changeLastName] = useState("");
 	const [phone_number, changePhoneNumber] = useState("");
-	const [checked, check] = useState(false);
 
 	// redux
 	const dispatch = useDispatch();
@@ -149,8 +148,8 @@ export default function RegisterModal(props) {
 				RegisterModalWrapper={RegisterModalWrapper}
 				aria-labelledby="register-modal"
 				fullScreen={fullScreen}
-				// fullWidth={fullWidth}
-				// maxWidth={maxWidth}
+			// fullWidth={fullWidth}
+			// maxWidth={maxWidth}
 			>
 				<DialogTitle
 					className={classes.registerHeader}
@@ -172,7 +171,7 @@ export default function RegisterModal(props) {
 								first_name,
 								last_name,
 								parseInt(phone_number),
-								checked
+								true
 							)
 						);
 					}}
