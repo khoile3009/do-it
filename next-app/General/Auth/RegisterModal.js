@@ -5,27 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import RegisterForm from "./RegisterForm"
 
 // ui
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
-import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import {
-	FormGroup,
-	Typography,
-	useMediaQuery,
-	FormControl,
-	InputAdornment,
-	IconButton,
-	FormHelperText,
-} from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import clsx from "clsx";
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
