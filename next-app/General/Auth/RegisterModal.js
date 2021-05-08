@@ -14,7 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Input from "@material-ui/core/Input";
 import {
 	FormGroup,
 	Typography,
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	registerModalWrapper: {
-		padding: "1rem",
+		paddingLeft: "2rem",
+		paddingRight: "2rem",
 		maxWidth: "100%",
 	},
 	form: {
@@ -58,11 +59,9 @@ const useStyles = makeStyles((theme) => ({
 	registerHeader: {
 		background: "#22d469",
 	},
-	spanOneRow: {
-		width: "80%",
-	},
 	passwordField: {
-		width: "48ch",
+		width: "32ch",
+		margin: "1rem",
 	},
 	margin: {
 		margin: theme.spacing(1),
@@ -109,6 +108,7 @@ export default function RegisterModal(props) {
 	// api
 	const [username, changeUsername] = useState("");
 	const [password, changePassword] = useState("");
+	const [repassword, changeRepassword] = useState("");
 	const [email, changeEmail] = useState("");
 	const [first_name, changeFirstName] = useState("");
 	const [last_name, changeLastName] = useState("");
@@ -161,34 +161,83 @@ export default function RegisterModal(props) {
 						Sign up for new account
 					</Typography>
 				</DialogTitle>
-				<form className={classes.registerModalWrapper + " " + classes.root}>
+				<form
+					onSubmit={(event) => {
+						event.preventDefault();
+						dispatch(
+							register(
+								username,
+								email,
+								password,
+								first_name,
+								last_name,
+								parseInt(phone_number),
+								checked
+							)
+						);
+					}}
+					className={classes.registerModalWrapper + " " + classes.root}
+				>
 					{/* name form group */}
-					<TextField required id="first_name" label="First Name" placeholder="Anh" />
-					<TextField required id="last_name" label="Last Name" placeholder="Nguyen" />
+					<TextField
+						required
+						onChange={(event) => changeFirstName(event.target.value)}
+						value={first_name}
+						id="first_name"
+						label="First Name"
+						placeholder="Anh"
+					/>
+					<TextField
+						required
+						onChange={(event) => changeLastName(event.target.value)}
+						value={last_name}
+						id="last_name"
+						label="Last Name"
+						placeholder="Nguyen"
+					/>
 					{/* email form group */}
-					<FormGroup>
-						<TextField
-							required
-							id="email"
-							label="E-mail"
-							placeholder="mail@example.com"
-							className={classes.spanOneRow}
-							helperText="This will also be your login username"
-						></TextField>
-					</FormGroup>
+
+					<TextField
+						required
+						id="email"
+						label="E-mail"
+						placeholder="mail@example.com"
+						// className={classes.spanOneRow}
+						onChange={(event) => changeEmail(event.target.value)}
+						value={email}
+					></TextField>
+					<TextField
+						required
+						id="phone"
+						label="Phone number"
+						placeholder="+1 555 666 7777"
+						// className={classes.spanOneRow}
+						onChange={(event) => changePhoneNumber(event.target.value)}
+						value={phone_number}
+					></TextField>
+
+					{/* username form group */}
+
+					<TextField
+						required
+						id="username"
+						label="Username"
+						placeholder="aaanh"
+						helperText="Must start with a letter and contain up to 12 alphanumeric characters."
+						className={classes.spanOneRow}
+						onChange={(event) => changeUsername(event.target.value)}
+						value={username}
+					></TextField>
+
 					{/* password form group */}
 					<FormGroup>
-						<FormControl
-							className={clsx(classes.margin, classes.passwordField)}
-							variant="outlined"
-							required
-						>
+						<FormControl className={clsx(classes.passwordField)} required>
 							<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-							<OutlinedInput
+							<Input
 								id="outlined-adornment-password"
 								type={values.showPassword ? "text" : "password"}
-								value={values.password}
-								// onChange={handleChange("password")}
+								value={password}
+								onChange={(event) => changePassword(event.target.value)}
 								endAdornment={
 									<InputAdornment position="end">
 										<IconButton
@@ -208,19 +257,15 @@ export default function RegisterModal(props) {
 								labelWidth={82}
 							/>
 						</FormControl>
-						<FormControl
-							className={clsx(classes.margin, classes.passwordField)}
-							variant="outlined"
-							required
-						>
+						<FormControl className={clsx(classes.passwordField)} required>
 							<InputLabel htmlFor="outlined-adornment-password">
 								Re-enter Password
 							</InputLabel>
-							<OutlinedInput
+							<Input
 								id="outlined-adornment-password"
 								type={values.showPassword ? "text" : "password"}
-								value={values.password}
-								// onChange={handleChange("password")}
+								value={repassword}
+								onChange={(event) => changeRepassword(event.target.value)}
 								endAdornment={
 									<InputAdornment position="end">
 										<IconButton
@@ -245,10 +290,11 @@ export default function RegisterModal(props) {
 					<hr></hr>
 					<FormGroup>
 						<Typography align="center" color="textSecondary">
-							By signing up, I accept <a href="">Terms of Service</a> and acknowledge
-							the <a href="">Privacy Policy</a>.
+							By signing up, I accept <a href="">Terms of Service</a> <br></br>and
+							acknowledge the <a href="">Privacy Policy</a>.
 						</Typography>
 						<Button
+							type="submit"
 							variant="contained"
 							size="large"
 							className={clsx(classes.margin, classes.signUpButton)}
@@ -256,34 +302,33 @@ export default function RegisterModal(props) {
 							Sign up
 						</Button>
 					</FormGroup>
+					<Typography variant="h5" align="center">
+						or
+					</Typography>
+					<FormGroup className={classes.margin}>
+						<Button
+							variant="contained"
+							size="large"
+							className={clsx(classes.margin, classes.signUpButtonGoogle)}
+						>
+							Sign up by Google
+						</Button>
+						<Button
+							variant="contained"
+							size="large"
+							className={clsx(classes.margin, classes.signUpButtonLinkedIn)}
+						>
+							Sign up by LinkedIn
+						</Button>
+						<Button
+							variant="contained"
+							size="large"
+							className={clsx(classes.margin, classes.signUpButtonApple)}
+						>
+							Sign up by Apple
+						</Button>
+					</FormGroup>
 				</form>
-				<Typography variant="h5" align="center">
-					or
-				</Typography>
-				<hr />
-				<FormGroup className={classes.margin}>
-					<Button
-						variant="contained"
-						size="large"
-						className={clsx(classes.margin, classes.signUpButtonGoogle)}
-					>
-						Sign up by Google
-					</Button>
-					<Button
-						variant="contained"
-						size="large"
-						className={clsx(classes.margin, classes.signUpButtonLinkedIn)}
-					>
-						Sign up by LinkedIn
-					</Button>
-					<Button
-						variant="contained"
-						size="large"
-						className={clsx(classes.margin, classes.signUpButtonApple)}
-					>
-						Sign up by Apple
-					</Button>
-				</FormGroup>
 			</Dialog>
 		</div>
 	);
