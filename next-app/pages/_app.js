@@ -8,8 +8,9 @@ export default function App({ Component, pageProps }) {
 	return (
 		<Provider store={store}>
 			<Initializer />
-			<Component {...pageProps} />
 			<PrimaryAppBar />
+			<Component {...pageProps} />
+
 		</Provider>
 	)
 }
