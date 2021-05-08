@@ -22,6 +22,7 @@ import {
 	FormControl,
 	InputAdornment,
 	IconButton,
+	FormHelperText,
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -125,6 +126,8 @@ export default function RegisterModal(props) {
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 	const [values, setValues] = useState({
 		showPassword: false,
+		passwordMatch: false,
+		signUpButtonState: false,
 	});
 
 	// events
@@ -137,6 +140,14 @@ export default function RegisterModal(props) {
 	};
 	const handleClickShowPassword = () => {
 		setValues({ ...values, showPassword: !values.showPassword });
+	};
+	const handleRepassword = (event) => {
+		changeRepassword(event.target.value);
+		if (password !== repassword) {
+			setValues({ ...values, passwordMatch: false });
+		} else {
+			setValues({ ...values, passwordMatch: true });
+		}
 	};
 
 	return (
@@ -261,10 +272,12 @@ export default function RegisterModal(props) {
 								Re-enter Password
 							</InputLabel>
 							<Input
+								error={!values.passwordMatch}
 								id="outlined-adornment-password"
 								type={values.showPassword ? "text" : "password"}
 								value={repassword}
 								onChange={(event) => changeRepassword(event.target.value)}
+								onKeyUp={handleRepassword}
 								endAdornment={
 									<InputAdornment position="end">
 										<IconButton
@@ -283,6 +296,13 @@ export default function RegisterModal(props) {
 								}
 								labelWidth={150}
 							/>
+							{values.passwordMatch ? (
+								" "
+							) : (
+								<FormHelperText id="re-enter-password-error-text">
+									Passwords do not match.
+								</FormHelperText>
+							)}
 						</FormControl>
 					</FormGroup>
 					{/* submission form group */}
