@@ -6,9 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 // ui
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
@@ -27,8 +24,6 @@ import {
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { colors } from "@material-ui/core";
-import PasswordField from "material-ui-password-field";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
