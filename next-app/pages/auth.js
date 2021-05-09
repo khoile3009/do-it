@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Login from "../General/Auth/Login";
+import LoginModal from "../General/Auth/LoginModal";
 import Register from "../General/Auth/Register";
 import RegisterModal from "../General/Auth/RegisterModal";
 
@@ -23,7 +24,7 @@ export default function Auth() {
 			>
 				To {state === 0 ? "login" : "register"}
 			</button>
-			{state === 0 ? <RegisterModal /> : <Login />}
+			{state === 0 ? <RegisterModal /> : <LoginModal />}
 		</div>
 	);
 }
