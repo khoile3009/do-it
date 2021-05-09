@@ -69,7 +69,7 @@ export default function LoginForm({
 				</FormControl>
 
 				{/* Remember token form group */}
-				<FormControlLabel
+				{/* <FormControlLabel
 					control={
 						<Checkbox
 							required
@@ -79,7 +79,7 @@ export default function LoginForm({
 						></Checkbox>
 					}
 					label="Remember me for this session"
-				></FormControlLabel>
+				></FormControlLabel> */}
 			</FormGroup>
 
 			{/* Log in submission */}

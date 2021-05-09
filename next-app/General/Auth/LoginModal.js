@@ -142,7 +142,7 @@ export default function LoginModal(props) {
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						dispatch(signin(username, password, checked));
+						dispatch(signin(username, password, true));
 					}}
 					className={clsx(classes.loginModalWrapper, classes.root)}
 				>
