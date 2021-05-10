@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import customTheme from "../../theme/theme"
 
 // AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
@@ -37,7 +38,7 @@ const drawerWidth = 480;
 const useStyles = makeStyles((theme) => ({
 	// Navigation bar main styling
 	root: {
-		background: "#00C77B",
+		background: customTheme.palette.primary.main,
 		position: "sticky",
 		top: "0",
 	},

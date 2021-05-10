@@ -3,6 +3,7 @@ import { React, useState } from "react";
 import { register } from "../../store/actions/index";
 import { useSelector, useDispatch } from "react-redux";
 import RegisterForm from "./RegisterForm"
+import customTheme from "../../theme/theme"
 
 // ui
 import Dialog from "@material-ui/core/Dialog";
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 		color: "#fff",
 	},
 	registerHeader: {
-		background: "#22d469",
+		background: customTheme.palette.primary.main,
 	},
 	passwordField: {
 		width: "32ch",
@@ -50,31 +51,31 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(1),
 	},
 	signUpButton: {
-		background: "#22d469",
+		background: customTheme.palette.primary.main,
 		color: "#fff",
 		"&:hover": {
-			background: "#47e686",
+			background: customTheme.palette.secondary.main,
 		},
 	},
 	signUpButtonGoogle: {
-		background: "#4285F4",
+		background: customTheme.palette.google.main,
 		color: "#fff",
 		"&:hover": {
-			background: "#6ea1f5",
+			background: customTheme.palette.google.sub,
 		},
 	},
 	signUpButtonApple: {
-		background: "#000",
+		background: customTheme.palette.apple.main,
 		color: "#fff",
 		"&:hover": {
-			background: "#222",
+			background: customTheme.palette.apple.sub,
 		},
 	},
 	signUpButtonLinkedIn: {
-		background: "#0e76a8",
+		background: customTheme.palette.linkedin.main,
 		color: "#fff",
 		"&:hover": {
-			background: "#3486ad",
+			background: customTheme.palette.linkedin.sub,
 		},
 	},
 }));
