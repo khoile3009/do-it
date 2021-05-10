@@ -7,6 +7,8 @@ from common import models as common_models
 
 from datetime import date
 
+from .manager import UserManager
+
 
 class User(auth_models.AbstractUser):
     SKILL_DEFAULT = "no_skill"
@@ -40,3 +42,5 @@ class User(auth_models.AbstractUser):
     )
 
     is_provider = models.BooleanField(default=False)    
+
+    objects = UserManager()
