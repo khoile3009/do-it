@@ -109,7 +109,7 @@ export default function RegisterModal(props) {
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 	const [values, setValues] = useState({
 		showPassword: false,
-		passwordMatch: false,
+		passwordMatch: true,
 		signUpButtonState: false,
 	});
 
