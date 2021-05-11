@@ -7,7 +7,7 @@ from common import models as common_models
 
 from datetime import date
 
-from .manager import UserManager
+from . import manager
 
 
 class User(auth_models.AbstractUser):
@@ -16,6 +16,7 @@ class User(auth_models.AbstractUser):
         (SKILL_DEFAULT, "No Skill"), 
     )
 
+    email = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(
         max_length=20,
         validators=[validators.RegexValidator(regex="^[0-9]*$", message="Phone number can only contain numbers")],
@@ -43,4 +44,7 @@ class User(auth_models.AbstractUser):
 
     is_provider = models.BooleanField(default=False)    
 
-    objects = UserManager()
+    objects = manager.UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['phone_number']
