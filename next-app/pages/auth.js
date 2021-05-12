@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Login from "../General/Auth/Login";
+import LoginModal from "../General/Auth/LoginModal";
 import Register from "../General/Auth/Register";
+import RegisterModal from "../General/Auth/RegisterModal";
 
 import { signout } from "../store/actions/index";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +24,7 @@ export default function Auth() {
 			>
 				To {state === 0 ? "login" : "register"}
 			</button>
-			{state === 0 ? <Register /> : <Login />}
+			{state === 0 ? <RegisterModal /> : <LoginModal />}
 		</div>
 	);
 }
