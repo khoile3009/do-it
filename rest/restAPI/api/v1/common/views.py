@@ -10,7 +10,18 @@ class CategoryBase():
     permission_classes = [permissions.IsAuthenticated]
 
 
-class CategoryCreate(CategoryBase, generics.CreateAPIView):
+class CategoryAdminBase():
+    serializer_class = serializers.CategorySerializer
+    queryset = models.Category.objects.all()
+    permission_classes = [permissions.IsAdminUser]
+
+class CategoryCreate(CategoryAdminBase, generics.CreateAPIView):
+    pass
+
+class CategoryUpdate(CategoryAdminBase, generics.UpdateAPIView):
+    pass
+
+class CategoryDelete(CategoryAdminBase, generics.DestroyAPIView):
     pass
 
 
