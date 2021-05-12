@@ -375,3 +375,6 @@ Headers {
 
 ## To delete a category, DELETE request to /api/v1/category/\<pk>/delete  using an admin token
 
+## To query for a list of category, GET request to  /api/v1/category
+
+## To query for a category using name or id, GET request to /api/v1/category/?name=\<name>&?id=\<id>
