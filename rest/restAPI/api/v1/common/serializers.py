@@ -3,11 +3,11 @@ from rest_framework import serializers
 from common import models
 
 
-class Tag(serializers.ModelSerializer):
-
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Tag
+        model = models.Category
         fields = [
             "pk",
             "name",
+            "parent"
         ]

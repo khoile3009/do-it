@@ -3,6 +3,6 @@ from django.contrib import admin
 from . import models
 
 for model in [
-    models.Tag,
+    models.Category,
 ]:
     admin.site.register(model)

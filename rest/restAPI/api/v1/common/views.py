@@ -4,20 +4,31 @@ from . import serializers
 from common import models
 
 
-class TagBase():
-    serializer_class = serializers.Tag
-    queryset = models.Tag.objects.all()
+class CategoryBase():
+    serializer_class = serializers.CategorySerializer
+    queryset = models.Category.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
 
-class TagCreate(TagBase, generics.CreateAPIView):
+class CategoryAdminBase():
+    serializer_class = serializers.CategorySerializer
+    queryset = models.Category.objects.all()
+    permission_classes = [permissions.IsAdminUser]
+
+class CategoryCreate(CategoryAdminBase, generics.CreateAPIView):
+    pass
+
+class CategoryUpdate(CategoryAdminBase, generics.UpdateAPIView):
+    pass
+
+class CategoryDelete(CategoryAdminBase, generics.DestroyAPIView):
     pass
 
 
-class TagList(TagBase, generics.ListAPIView):
+class CategoryList(CategoryBase, generics.ListAPIView):
 
     def get_queryset(self):
-        queryset = models.Tag.objects.all()
+        queryset = models.Category.objects.all()
         name = self.request.query_params.get("name")
         id = self.request.query_params.get("id")
         if name is not None:

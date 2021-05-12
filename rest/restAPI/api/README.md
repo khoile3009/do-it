@@ -338,3 +338,43 @@ Headers {
 ```
 
 ## To filter Job with keyword in description, GET request to /api/v1/job/?description=keyword
+
+## To create a category, POST request to /api/v1/category/create with json using an admin token
+```json
+{
+    "name":"yard cleaning123",
+	"parent": <parent_id>
+}
+```
+
+### Sample response from /api/v1/category/create
+```json
+{
+    "pk": 2,
+    "name": "yard cleaning123",
+    "parent": null
+}
+```
+
+## To update a category, PATCH request to /api/v1/category/\<pk>/update with json using an admin token
+```json
+{
+    "name":"yard cleaning123",
+	"parent": <parent_id>
+}
+```
+
+### Sample response from /api/v1/category/create
+```json
+{
+    "pk": 2,
+    "name": "yard cleaning123",
+    "parent": null
+}
+```
+
+## To delete a category, DELETE request to /api/v1/category/\<pk>/delete  using an admin token
+
+## To query for a list of category, GET request to  /api/v1/category
+
+## To query for a category using name or id, GET request to /api/v1/category/?name=\<name>&?id=\<id>
