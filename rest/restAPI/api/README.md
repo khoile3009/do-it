@@ -356,7 +356,7 @@ Headers {
 }
 ```
 
-## To update a category, PATCH request to /api/v1/category/<pk>/update with json using an admin token
+## To update a category, PATCH request to /api/v1/category/\<pk>/update with json using an admin token
 ```json
 {
     "name":"yard cleaning123",
@@ -373,5 +373,5 @@ Headers {
 }
 ```
 
-## To delete a category, DELETE request to /api/v1/category/<pk>/delete  using an admin token
+## To delete a category, DELETE request to /api/v1/category/\<pk>/delete  using an admin token
 
