@@ -378,3 +378,17 @@ Headers {
 ## To query for a list of category, GET request to  /api/v1/category
 
 ## To query for a category using name or id, GET request to /api/v1/category/?name=\<name>&?id=\<id>
+
+## To add a skill to user, POST request to api/v1/user/skill using a token of user you want to add (you can add your own skill) with body of 
+```json
+{
+	"skill_id": <id>
+}
+```
+
+## To delete skill to user, DELETE request to api/v1/user/skill using a token of user you want to add (you can add your own skill) with body of 
+```json
+{
+	"skill_id": <id>
+}
+```
