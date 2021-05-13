@@ -6,5 +6,6 @@ from . import models
 # Register your models here.
 for model in [
     models.User,
+    models.UserSkill
 ]:
     admin.site.register(model)

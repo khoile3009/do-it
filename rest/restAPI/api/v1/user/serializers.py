@@ -1,11 +1,18 @@
 from rest_framework import serializers
-from user.models import User
+from user.models import User, UserSkill
 from django.contrib.auth import authenticate
+from api.v1.common.serializers import CategorySerializer
+
+
+class UserSkillSerializer(serializers.RelatedField):
+    def to_representation(self, value):
+        return {"pk": value.pk, "user": value.user, "skill": value.skill, 'total_rating': value.total_rating, 'number_rating': value.number_rating}
 
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField(method_name='get_full_name')
+    skills = CategorySerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -17,18 +24,20 @@ class UserSerializer(serializers.ModelSerializer):
             'phone_number',
             'address',
             'birthday',
-            'skill',
-            'rating',
-            'is_provider',
+            'headline',
+            'description',
+            'total_rating',
+            'number_rating',
+            'skills',
         ]
 
+    # TODO: Get average cost
     def get_full_name(self, instance):
         return instance.get_full_name()
 
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = [

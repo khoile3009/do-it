@@ -20,12 +20,10 @@ class UserManager(auth_models.BaseUserManager):
 
         normalized_email = self.normalize_email(email)
         user = self.model(email=normalized_email,
-                          username=normalized_email,
-                          phone_number=phone_number,
-                          first_name=first_name,
-                          last_name=last_name)
+                          username=normalized_email, phone_number=phone_number)
         user.set_password(password)
         user.save()
+
         return user
 
     def create_superuser(self, email, password, phone_number):
@@ -38,10 +36,6 @@ class UserManager(auth_models.BaseUserManager):
 
 
 class User(auth_models.AbstractUser):
-    SKILL_DEFAULT = "no_skill"
-    SKILL_CHOICES = (
-        (SKILL_DEFAULT, "No Skill"),
-    )
 
     email = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(
@@ -53,26 +47,34 @@ class User(auth_models.AbstractUser):
     )
     address = models.TextField(blank=True)
     birthday = models.DateField(default=date.today)
-    # Basically hard-coded tags
-    skill = models.CharField(
-        max_length=255,
-        choices=SKILL_CHOICES,
-        default=SKILL_DEFAULT,
-    )
-    rating = models.DecimalField(
-        max_digits=2,
-        decimal_places=1,
-        blank=True,
-        default=0,
-        validators=[
-            validators.MaxValueValidator(5),
-            validators.MinValueValidator(0),
-        ],
-    )
 
-    is_provider = models.BooleanField(default=False)
+    # Basically hard-coded tags
+    description = models.TextField(blank=True, default="")
+    headline = models.TextField(blank=True, default="")
+    current_balance = models.FloatField(default=0)
+
+    # To calculate average pay rate
+    total_pay = models.FloatField(default=0)
+    number_pay = models.IntegerField(default=0)
+
+    # To calculate rating
+    total_rating = models.IntegerField(default=0)
+    number_rating = models.IntegerField(default=0)
+
+    skills = models.ManyToManyField(
+        common_models.Category, related_name="user_skills", through="UserSkill")
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number']
+
+
+class UserSkill(models.Model):
+    user = models.ForeignKey(
+        User, related_name="users", on_delete=models.CASCADE)
+    skill = models.ForeignKey(
+        common_models.Category, related_name="skills", on_delete=models.CASCADE
+    )
+    total_rating = models.IntegerField(default=0)
+    number_rating = models.IntegerField(default=0)
