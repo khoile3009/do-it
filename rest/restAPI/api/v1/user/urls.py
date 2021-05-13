@@ -2,7 +2,7 @@ from django.urls import path, include
 from knox import views as knox_views
 
 from . import views
-
+from . import api
 
 urlpatterns = [
     # knox stuffs
@@ -15,4 +15,7 @@ urlpatterns = [
     path("user/", views.UserList.as_view(), name="user_list"),
     path("user/retrieve", views.UserRetrieve.as_view(), name="user_retrieve"),
     path("user/update", views.UserUpdate.as_view(), name="user_update"),
+    # User skill
+    path("user/skill", api.UserSkillAPI.as_view(), name="user_skill")
+
 ]
