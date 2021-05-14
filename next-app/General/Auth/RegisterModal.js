@@ -1,7 +1,6 @@
 // react
 import { React, useState } from "react";
-import { register } from "../../store/actions/index";
-import { useSelector, useDispatch } from "react-redux";
+
 import RegisterForm from "./RegisterForm"
 import customTheme from "../../theme/theme"
 
@@ -90,28 +89,16 @@ function RegisterModalWrapper(props) {
 
 export default function RegisterModal(props) {
 	// api
-	const [username, changeUsername] = useState("");
-	const [password, changePassword] = useState("");
-	const [repassword, changeRepassword] = useState("");
-	const [email, changeEmail] = useState("");
-	const [first_name, changeFirstName] = useState("");
-	const [last_name, changeLastName] = useState("");
-	const [phone_number, changePhoneNumber] = useState("");
 
 	// redux
-	const dispatch = useDispatch();
-	const auth = useSelector((state) => state.auth);
+
 
 	// theme and ui
 	const classes = useStyles();
 	const [open, setOpen] = useState(true);
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-	const [values, setValues] = useState({
-		showPassword: false,
-		passwordMatch: true,
-		signUpButtonState: false,
-	});
+
 
 	// events
 	const handleClickOpen = () => {
@@ -121,17 +108,7 @@ export default function RegisterModal(props) {
 		// submitRegisterForm();
 		setOpen(false);
 	};
-	const handleClickShowPassword = () => {
-		setValues({ ...values, showPassword: !values.showPassword });
-	};
-	const handleRepassword = (event) => {
-		changeRepassword(event.target.value);
-		if (password !== repassword) {
-			setValues({ ...values, passwordMatch: false });
-		} else {
-			setValues({ ...values, passwordMatch: true });
-		}
-	};
+
 
 	return (
 		<div>
@@ -152,38 +129,12 @@ export default function RegisterModal(props) {
 						Sign up for new account
 					</Typography>
 				</DialogTitle>
-				<form
-					onSubmit={(event) => {
-						event.preventDefault();
-						dispatch(
-							register(
-								username,
-								email,
-								password,
-								first_name,
-								last_name,
-								parseInt(phone_number),
-								true
-							)
-						);
-					}}
-					className={classes.registerModalWrapper + " " + classes.root}
-				>
-					<RegisterForm
-						first_name={first_name} changeFirstName={changeFirstName}
-						last_name={last_name} changeLastName={changeLastName}
-						email={email} changeEmail={changeEmail}
-						username={username} changeUsername={changeUsername}
-						phone_number={phone_number} changePhoneNumber={changePhoneNumber}
-						password={password} changePassword={changePassword}
-						repassword={repassword} changeRepassword={changeRepassword}
-						classes={classes}
-						values={values}
-						handleClickShowPassword={handleClickShowPassword}
-						handleRepassword={handleRepassword}
-					></RegisterForm>
-				</form>
+
+				<RegisterForm
+					classes={classes}
+				></RegisterForm>
+
 			</Dialog>
-		</div>
+		</div >
 	);
 }

@@ -2,8 +2,7 @@
 
 // react
 import { React, useState } from "react";
-import { signin } from "../../store/actions/index";
-import { useSelector, useDispatch } from "react-redux";
+
 import LoginForm from "./LoginForm";
 
 // ui
@@ -90,24 +89,13 @@ function LogInModalWrapper(props) {
 }
 
 export default function LoginModal(props) {
-	// api
-	const [username, changeUsername] = useState("");
-	const [password, changePassword] = useState("");
-	const [checked, check] = useState(false);
-
-	// redux
-	const dispatch = useDispatch();
-	const auth = useSelector((state) => state.auth);
 
 	// theme and ui
 	const classes = useStyles();
 	const [open, setOpen] = useState(true);
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-	const [values, setValues] = useState({
-		showPassword: false,
-		loginButtonState: false,
-	});
+
 
 	// event handlers
 	const handleClickOpen = () => {
@@ -116,9 +104,7 @@ export default function LoginModal(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
-	const handleClickShowPassword = () => {
-		setValues({ ...values, showPassword: !values.showPassword });
-	};
+
 
 	return (
 		<div>
@@ -139,24 +125,12 @@ export default function LoginModal(props) {
 						Member log in
 					</Typography>
 				</DialogTitle>
-				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-						dispatch(signin(username, password, true));
-					}}
-					className={clsx(classes.loginModalWrapper, classes.root)}
-				>
-					<LoginForm
-						username={username}
-						changeUsername={changeUsername}
-						password={password}
-						changePassword={changePassword}
-						classes={classes}
-						values={values}
-						handleClickShowPassword={handleClickShowPassword}
-					></LoginForm>
-				</form>
+
+				<LoginForm
+					classes={classes}
+				></LoginForm>
+
 			</Dialog>
-		</div>
+		</div >
 	);
 }
