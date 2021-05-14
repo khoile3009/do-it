@@ -1,4 +1,4 @@
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, UserUpdateSerializer
 from knox.models import AuthToken
 from rest_framework.response import Response
 from rest_framework import generics, permissions
@@ -61,7 +61,7 @@ class UserUpdate(generics.UpdateAPIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
-    serializer_class = UserSerializer
+    serializer_class = UserUpdateSerializer
     queryset = models.User.objects.all()
 
     def get_serializer(self, instance, **kwargs):

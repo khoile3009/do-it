@@ -43,3 +43,4 @@ class UserSkillAPI(generics.GenericAPIView):
             return JsonResponse({'status': 'Cannot delete skill with rating'}, status=404)
         user_skill.delete()
         return JsonResponse({'status': 'ok'}, safe=True)
+
