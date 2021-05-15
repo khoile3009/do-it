@@ -12,8 +12,9 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { FormGroup, Typography, FormControl, InputAdornment, IconButton } from "@material-ui/core";
+import clsx from "clsx";
 
-export default function CustomerProfileForm(props) {
+export default function CustomerProfileForm({ classes }) {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
 	const handleDateChange = (dateOfBirth) => {
@@ -26,6 +27,7 @@ export default function CustomerProfileForm(props) {
 				e.preventDefault();
 				// dispatch();
 			}}
+			className={clsx(classes.profileModalWrapper, classes.root)}
 		>
 			<FormGroup>
 				{/* Date of birth group */}

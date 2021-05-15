@@ -64,7 +64,7 @@ export default function CustomerProfileModal(props) {
 	return (
 		<div>
 			<Dialog
-				className={classes.ProfileModalWrapper}
+				className={classes.profileModalWrapper}
 				open={props.open}
 				onClose={props.handleClose}
 				ProfileModalWrapper={ProfileModalWrapper}
