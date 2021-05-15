@@ -252,9 +252,16 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			<MenuItem onClick={handleMenuSignIn}>{auth.userId ? "Profile" : "Sign In"}</MenuItem>
+			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
+			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
+			{!auth.userId && <MenuItem onClick={handleMenuRegister}>"Sign In"</MenuItem>}
+			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
+			
 			<MenuItem onClick={handleMenuRegister}>
 				{auth.userId ? "My account" : "Register"}
+			</MenuItem>
+			<MenuItem onClick={handleMenuProfile}>
+				{auth.userId ? ""}
 			</MenuItem>
 		</Menu>
 	);
