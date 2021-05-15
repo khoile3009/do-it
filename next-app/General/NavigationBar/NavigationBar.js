@@ -185,6 +185,7 @@ export default function PrimaryAppBar(props) {
 
 	const handleRegister = () => {
 		setRegister(!showRegister);
+		setProfile(!showProfile);
 	};
 	const handleLogin = () => {
 		setRegister(!showLogin);

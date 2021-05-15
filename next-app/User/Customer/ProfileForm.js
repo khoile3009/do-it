@@ -42,7 +42,7 @@ export default function CustomerProfileForm({ classes }) {
 						value={selectedDate}
 						onChange={handleDateChange}
 						KeyboardButtonProps={{
-							"aria-label": "change date",
+							"aria-label": "change date of birth",
 						}}
 					/>
 				</MuiPickersUtilsProvider>
