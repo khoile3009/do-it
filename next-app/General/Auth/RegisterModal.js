@@ -1,8 +1,8 @@
 // react
 import { React, useState } from "react";
 
-import RegisterForm from "./RegisterForm"
-import customTheme from "../../theme/theme"
+import RegisterForm from "./RegisterForm";
+import customTheme from "../../theme/theme";
 
 // ui
 import Dialog from "@material-ui/core/Dialog";
@@ -11,7 +11,6 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -92,13 +91,11 @@ export default function RegisterModal(props) {
 
 	// redux
 
-
 	// theme and ui
 	const classes = useStyles();
 	const [open, setOpen] = useState(true);
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
 
 	// events
 	const handleClickOpen = () => {
@@ -109,13 +106,12 @@ export default function RegisterModal(props) {
 		setOpen(false);
 	};
 
-
 	return (
 		<div>
 			<Dialog
 				className={classes.registerModalWrapper}
-				open={open}
-				onClose={handleClose}
+				open={props.open}
+				onClose={props.handleClose}
 				RegisterModalWrapper={RegisterModalWrapper}
 				aria-labelledby="register-modal"
 				fullScreen={fullScreen}
@@ -130,11 +126,8 @@ export default function RegisterModal(props) {
 					</Typography>
 				</DialogTitle>
 
-				<RegisterForm
-					classes={classes}
-				></RegisterForm>
-
+				<RegisterForm classes={classes}></RegisterForm>
 			</Dialog>
-		</div >
+		</div>
 	);
 }

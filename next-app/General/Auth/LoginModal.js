@@ -89,13 +89,11 @@ function LogInModalWrapper(props) {
 }
 
 export default function LoginModal(props) {
-
 	// theme and ui
 	const classes = useStyles();
 	const [open, setOpen] = useState(true);
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
 
 	// event handlers
 	const handleClickOpen = () => {
@@ -105,13 +103,12 @@ export default function LoginModal(props) {
 		setOpen(false);
 	};
 
-
 	return (
 		<div>
 			<Dialog
 				className={classes.loginModalWrapper}
-				open={open}
-				onClose={handleClose}
+				open={props.open}
+				onClose={props.handleClose}
 				LogInModalWrapper={LogInModalWrapper}
 				aria-labelledby="login-modal"
 				fullScreen={fullScreen}
@@ -126,11 +123,8 @@ export default function LoginModal(props) {
 					</Typography>
 				</DialogTitle>
 
-				<LoginForm
-					classes={classes}
-				></LoginForm>
-
+				<LoginForm classes={classes}></LoginForm>
 			</Dialog>
-		</div >
+		</div>
 	);
 }

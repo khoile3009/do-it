@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import customTheme from "../../theme/theme"
+import customTheme from "../../theme/theme";
 
 // AppBar dependencies
 import AppBar from "@material-ui/core/AppBar";
@@ -34,6 +34,10 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 
 // Style props
 const drawerWidth = 480;
+
+// auth
+import RegisterModal from "../Auth/RegisterModal";
+import LoginModal from "../Auth/LoginModal";
 
 const useStyles = makeStyles((theme) => ({
 	// Navigation bar main styling
@@ -172,7 +176,17 @@ export default function PrimaryAppBar(props) {
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+	const [showRegister, setRegister] = useState(false);
+	const [showLogin, setLogin] = useState(false);
+
 	const [openDrawer, setOpenDrawer] = useState(false);
+
+	const handleRegister = () => {
+		setRegister(!showRegister);
+	};
+	const handleLogin = () => {
+		setRegister(!showLogin);
+	};
 
 	const handleDrawerOpen = () => {
 		setOpenDrawer(true);
@@ -190,6 +204,16 @@ export default function PrimaryAppBar(props) {
 		setMobileMoreAnchorEl(null);
 	};
 
+	const handleMenuSignIn = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+		handleLogin();
+	};
+	const handleMenuRegister = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+		handleRegister();
+	};
 	const handleMenuClose = () => {
 		setAnchorEl(null);
 		handleMobileMenuClose();
@@ -228,8 +252,10 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			<MenuItem onClick={handleMenuClose}>{auth.userId ? "Profile" : "Sign In"}</MenuItem>
-			<MenuItem onClick={handleMenuClose}>{auth.userId ? "My account" : "Register"}</MenuItem>
+			<MenuItem onClick={handleMenuSignIn}>{auth.userId ? "Profile" : "Sign In"}</MenuItem>
+			<MenuItem onClick={handleMenuRegister}>
+				{auth.userId ? "My account" : "Register"}
+			</MenuItem>
 		</Menu>
 	);
 
@@ -289,6 +315,11 @@ export default function PrimaryAppBar(props) {
 				className={clsx(classes.root, { [classes.appBarShift]: openDrawer })}
 				position="static"
 			>
+				{/* Calling the auth modals here */}
+				<RegisterModal open={showRegister} handleClose={handleRegister}></RegisterModal>
+				<LoginModal open={showLogin} handleClose={handleLogin}></LoginModal>
+
+				{/* Calling the auth modals here */}
 				<Toolbar>
 					<IconButton
 						edge="start"
