@@ -1,6 +1,6 @@
 // react
 import { TextField } from "@material-ui/core";
-import React from "react";
+import { React, useState } from "react";
 import "date-fns";
 
 // ui
@@ -11,9 +11,10 @@ import {
 	KeyboardTimePicker,
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { FormGroup, Typography, FormControl, InputAdornment, IconButton } from "@material-ui/core";
 
 export default function CustomerProfileForm(props) {
-	const [selectedDate, setSelectedDate] = useState(new Date("2014-08-18T21:11:54"));
+	const [selectedDate, setSelectedDate] = useState(new Date());
 
 	const handleDateChange = (dateOfBirth) => {
 		setSelectedDate(dateOfBirth);

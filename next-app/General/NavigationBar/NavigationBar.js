@@ -38,6 +38,7 @@ const drawerWidth = 480;
 // auth
 import RegisterModal from "../Auth/RegisterModal";
 import LoginModal from "../Auth/LoginModal";
+import CustomerProfileModal from "../../User/Customer/ProfileModal";
 
 const useStyles = makeStyles((theme) => ({
 	// Navigation bar main styling
@@ -178,6 +179,7 @@ export default function PrimaryAppBar(props) {
 
 	const [showRegister, setRegister] = useState(false);
 	const [showLogin, setLogin] = useState(false);
+	const [showProfile, setProfile] = useState(false);
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -186,6 +188,9 @@ export default function PrimaryAppBar(props) {
 	};
 	const handleLogin = () => {
 		setRegister(!showLogin);
+	};
+	const handleProfile = () => {
+		setProfile(!showProfile);
 	};
 
 	const handleDrawerOpen = () => {
@@ -213,6 +218,11 @@ export default function PrimaryAppBar(props) {
 		setAnchorEl(null);
 		handleMobileMenuClose();
 		handleRegister();
+	};
+	const handleMenuProfile = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+		handleProfile();
 	};
 	const handleMenuClose = () => {
 		setAnchorEl(null);
@@ -252,17 +262,9 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
-			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
-			{!auth.userId && <MenuItem onClick={handleMenuRegister}>"Sign In"</MenuItem>}
-			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>"Sign In"</MenuItem>}
-			
-			<MenuItem onClick={handleMenuRegister}>
-				{auth.userId ? "My account" : "Register"}
-			</MenuItem>
-			<MenuItem onClick={handleMenuProfile}>
-				{auth.userId ? ""}
-			</MenuItem>
+			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>Sign In</MenuItem>}
+			{!auth.userId && <MenuItem onClick={handleMenuRegister}>Register</MenuItem>}
+			{!auth.userId && <MenuItem onClick={handleMenuProfile}>Profile</MenuItem>}
 		</Menu>
 	);
 
@@ -325,6 +327,10 @@ export default function PrimaryAppBar(props) {
 				{/* Calling the auth modals here */}
 				<RegisterModal open={showRegister} handleClose={handleRegister}></RegisterModal>
 				<LoginModal open={showLogin} handleClose={handleLogin}></LoginModal>
+				<CustomerProfileModal
+					open={showProfile}
+					handleClose={handleProfile}
+				></CustomerProfileModal>
 
 				{/* Calling the auth modals here */}
 				<Toolbar>
