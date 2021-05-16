@@ -10,7 +10,7 @@ from datetime import date
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, email, password, phone_number):
+    def create_user(self, email, password, phone_number, first_name, last_name):
         if not email:
             raise ValueError("User must have an email address")
         if not password:
@@ -19,10 +19,13 @@ class UserManager(auth_models.BaseUserManager):
             raise ValueError("User must have an phone number")
 
         normalized_email = self.normalize_email(email)
-        user = self.model(email=normalized_email, username=normalized_email, phone_number=phone_number)
+        user = self.model(email=normalized_email,
+                          username=normalized_email,
+                          phone_number=phone_number,
+                          first_name=first_name,
+                          last_name=last_name)
         user.set_password(password)
         user.save()
-        
         return user
 
     def create_superuser(self, email, password, phone_number):
@@ -37,13 +40,14 @@ class UserManager(auth_models.BaseUserManager):
 class User(auth_models.AbstractUser):
     SKILL_DEFAULT = "no_skill"
     SKILL_CHOICES = (
-        (SKILL_DEFAULT, "No Skill"), 
+        (SKILL_DEFAULT, "No Skill"),
     )
 
     email = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(
         max_length=20,
-        validators=[validators.RegexValidator(regex="^[0-9]*$", message="Phone number can only contain numbers")],
+        validators=[validators.RegexValidator(
+            regex="^[0-9]*$", message="Phone number can only contain numbers")],
         unique=True,
         blank=True,
     )
@@ -56,9 +60,9 @@ class User(auth_models.AbstractUser):
         default=SKILL_DEFAULT,
     )
     rating = models.DecimalField(
-        max_digits=2, 
-        decimal_places=1, 
-        blank=True, 
+        max_digits=2,
+        decimal_places=1,
+        blank=True,
         default=0,
         validators=[
             validators.MaxValueValidator(5),
@@ -66,7 +70,7 @@ class User(auth_models.AbstractUser):
         ],
     )
 
-    is_provider = models.BooleanField(default=False)    
+    is_provider = models.BooleanField(default=False)
 
     objects = UserManager()
 
