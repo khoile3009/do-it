@@ -162,6 +162,13 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		marginLeft: 0,
 	},
+	option: {
+		fontSize: 15,
+		"& > span": {
+			marginRight: 10,
+			fontSize: 18,
+		},
+	},
 	// Mail and Notification styles
 }));
 
@@ -263,9 +270,13 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			{!auth.userId && <MenuItem onClick={handleMenuSignIn}>Sign In</MenuItem>}
-			{!auth.userId && <MenuItem onClick={handleMenuRegister}>Register</MenuItem>}
-			{!auth.userId && <MenuItem onClick={handleMenuProfile}>Profile</MenuItem>}
+			{!auth.userId && !showLogin && <MenuItem onClick={handleMenuSignIn}>Sign In</MenuItem>}
+			{!auth.userId && !showRegister && (
+				<MenuItem onClick={handleMenuRegister}>Register</MenuItem>
+			)}
+			{!auth.userId && !showProfile && (
+				<MenuItem onClick={handleMenuProfile}>Profile</MenuItem>
+			)}
 		</Menu>
 	);
 

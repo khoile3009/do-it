@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: "2rem",
 		paddingRight: "2rem",
 		maxWidth: "100%",
+		minWidth: 400,
+		minHeight: 600,
+		paddingBottom: 50,
 	},
 	form: {
 		display: "flex",
@@ -38,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	profileHeader: {
 		background: "#22d469",
+	},
+	updateProfileButton: {
+		background: "#22d469",
+		color: "#fff",
+		"&:hover": {
+			background: "#47e686",
+		},
 	},
 }));
 
