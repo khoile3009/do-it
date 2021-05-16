@@ -14,6 +14,7 @@ import {
 import { FormGroup, Typography, FormControl, InputAdornment, IconButton } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Input, InputLabel } from "@material-ui/core";
 import clsx from "clsx";
 
 function countryToFlag(isoCode) {
@@ -31,6 +32,7 @@ export default function CustomerProfileForm({ classes }) {
 	const [stateProvince, changeStateProvince] = useState("");
 	const [city, changeCity] = useState("");
 	const [zipcode, changeZipCode] = useState("");
+	const [headline, changeHeadline] = useState("");
 
 	const handleDateChange = (dateOfBirth) => {
 		setSelectedDate(dateOfBirth);
@@ -46,7 +48,16 @@ export default function CustomerProfileForm({ classes }) {
 		>
 			{/*  Profile basic group */}
 			<FormGroup>
-				<TextField multiline label="Headline" rowsMax={4} rows={3}></TextField>
+				<TextField
+					label="Headline"
+					onChange={(e) => changeHeadline(e.target.value)}
+					value={headline}
+					id="profile_headline"
+					multiline
+					rows={3}
+					rowsMax={4}
+					placeholder="e.g. SWE @ Google, PhD Candidate @ VinUniversity, DevOps for IBM Watson"
+				></TextField>
 			</FormGroup>
 			{/*  TODO: Add data from the completed register form here in `value` attribute!!! */}
 			<FormGroup>

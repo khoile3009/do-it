@@ -17,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	profileModalWrapper: {
+		paddingBottom: 50,
+		paddingTop: 30,
 		paddingLeft: "2rem",
 		paddingRight: "2rem",
 		maxWidth: "100%",
 		minWidth: 400,
 		minHeight: 600,
-		paddingBottom: 50,
 	},
 	form: {
 		display: "flex",
