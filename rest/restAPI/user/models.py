@@ -48,6 +48,12 @@ class User(auth_models.AbstractUser):
     address = models.TextField(blank=True)
     birthday = models.DateField(default=date.today)
 
+    SEX_CHOICES = (
+        ("M", "Male"),
+        ("F", "Female"),
+    )
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="M")
+
     # Basically hard-coded tags
     description = models.TextField(blank=True, default="")
     headline = models.TextField(blank=True, default="")

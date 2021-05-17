@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from user.models import User, UserSkill
 from django.contrib.auth import authenticate
 from api.v1.common.serializers import CategorySerializer
@@ -13,6 +13,7 @@ class UserSkillSerializer(serializers.RelatedField):
 class UserSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField(method_name='get_full_name')
     skills = CategorySerializer(many=True, read_only=True)
+    sex = serializers.SerializerMethodField(method_name='get_sex_display')
 
     class Meta:
         model = User
@@ -21,6 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'full_name',
+            'sex',
             'phone_number',
             'address',
             'birthday',
@@ -35,8 +37,11 @@ class UserSerializer(serializers.ModelSerializer):
     def get_full_name(self, instance):
         return instance.get_full_name()
 
-
+    def get_sex_display(self, instance):
+        return instance.get_sex_display()
 # Register Serializer
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -52,13 +57,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            phone_number=validated_data['phone_number'])
-
+        user = User.objects.create_user(username=validated_data['username'],
+                                        email=validated_data['email'],
+                                        password=validated_data['password'],
+                                        first_name=validated_data['first_name'],
+                                        last_name=validated_data['last_name'],
+                                        phone_number=validated_data['phone_number'])
         return user
 
 
