@@ -192,10 +192,9 @@ export default function PrimaryAppBar(props) {
 
 	const handleRegister = () => {
 		setRegister(!showRegister);
-		setProfile(!showProfile);
 	};
 	const handleLogin = () => {
-		setRegister(!showLogin);
+		setLogin(!showLogin);
 	};
 	const handleProfile = () => {
 		setProfile(!showProfile);
@@ -253,9 +252,9 @@ export default function PrimaryAppBar(props) {
 	const handleNotificationOpen = (event) => {
 		event.preventDefault();
 	};
-	const handleMailClose = (event) => {};
+	const handleMailClose = (event) => { };
 
-	const handleNotificationClose = (event) => {};
+	const handleNotificationClose = (event) => { };
 
 	const menuId = "primary-search-account-menu";
 
