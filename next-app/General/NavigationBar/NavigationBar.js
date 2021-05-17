@@ -38,6 +38,7 @@ const drawerWidth = 480;
 // auth
 import RegisterModal from "../Auth/RegisterModal";
 import LoginModal from "../Auth/LoginModal";
+import CustomerProfileModal from "../../User/Customer/ProfileModal";
 
 const useStyles = makeStyles((theme) => ({
 	// Navigation bar main styling
@@ -161,6 +162,13 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		marginLeft: 0,
 	},
+	option: {
+		fontSize: 15,
+		"& > span": {
+			marginRight: 10,
+			fontSize: 18,
+		},
+	},
 	// Mail and Notification styles
 }));
 
@@ -178,6 +186,7 @@ export default function PrimaryAppBar(props) {
 
 	const [showRegister, setRegister] = useState(false);
 	const [showLogin, setLogin] = useState(false);
+	const [showProfile, setProfile] = useState(false);
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -185,7 +194,10 @@ export default function PrimaryAppBar(props) {
 		setRegister(!showRegister);
 	};
 	const handleLogin = () => {
-		setRegister(!showLogin);
+		setLogin(!showLogin);
+	};
+	const handleProfile = () => {
+		setProfile(!showProfile);
 	};
 
 	const handleDrawerOpen = () => {
@@ -214,6 +226,11 @@ export default function PrimaryAppBar(props) {
 		handleMobileMenuClose();
 		handleRegister();
 	};
+	const handleMenuProfile = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
+		handleProfile();
+	};
 	const handleMenuClose = () => {
 		setAnchorEl(null);
 		handleMobileMenuClose();
@@ -235,9 +252,9 @@ export default function PrimaryAppBar(props) {
 	const handleNotificationOpen = (event) => {
 		event.preventDefault();
 	};
-	const handleMailClose = (event) => {};
+	const handleMailClose = (event) => { };
 
-	const handleNotificationClose = (event) => {};
+	const handleNotificationClose = (event) => { };
 
 	const menuId = "primary-search-account-menu";
 
@@ -252,10 +269,13 @@ export default function PrimaryAppBar(props) {
 			onClose={handleMenuClose}
 			getContentAnchorEl={null}
 		>
-			<MenuItem onClick={handleMenuSignIn}>{auth.userId ? "Profile" : "Sign In"}</MenuItem>
-			<MenuItem onClick={handleMenuRegister}>
-				{auth.userId ? "My account" : "Register"}
-			</MenuItem>
+			{!auth.userId && !showLogin && <MenuItem onClick={handleMenuSignIn}>Sign In</MenuItem>}
+			{!auth.userId && !showRegister && (
+				<MenuItem onClick={handleMenuRegister}>Register</MenuItem>
+			)}
+			{!auth.userId && !showProfile && (
+				<MenuItem onClick={handleMenuProfile}>Profile</MenuItem>
+			)}
 		</Menu>
 	);
 
@@ -318,6 +338,10 @@ export default function PrimaryAppBar(props) {
 				{/* Calling the auth modals here */}
 				<RegisterModal open={showRegister} handleClose={handleRegister}></RegisterModal>
 				<LoginModal open={showLogin} handleClose={handleLogin}></LoginModal>
+				<CustomerProfileModal
+					open={showProfile}
+					handleClose={handleProfile}
+				></CustomerProfileModal>
 
 				{/* Calling the auth modals here */}
 				<Toolbar>
