@@ -5,6 +5,7 @@ from rest_framework import generics, permissions
 
 from api.v1 import pagination
 from user import models
+from . import serializers
 
 
 # Register API
@@ -70,3 +71,30 @@ class UserUpdate(generics.UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserSkillCreate(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.UserSkillSerializer
+
+
+class UserSkillUpdate(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.UserSkillSerializer
+
+    def get_serializer(self, instance, **kwargs):
+        kwargs["partial"] = True
+
+        return super().get_serializer(instance, **kwargs)
+
+
+class UserSkillList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.UserSkillSerializer
+    queryset = models.UserSkill.objects.all()
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(user=user)
+

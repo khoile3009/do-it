@@ -16,6 +16,7 @@ urlpatterns = [
     path("user/retrieve", views.UserRetrieve.as_view(), name="user_retrieve"),
     path("user/update", views.UserUpdate.as_view(), name="user_update"),
     # User skill
-    path("user/skill", api.UserSkillAPI.as_view(), name="user_skill")
-
+    path("user/skill/", views.UserSkillList.as_view(), name="user_skill_list"),
+    path("user/skill/create", views.UserSkillCreate.as_view(), name="user_skill_create"),
+    path("user/skill/update", views.UserSkillUpdate.as_view(), name="user_skill_update"),
 ]

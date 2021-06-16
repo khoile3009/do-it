@@ -10,7 +10,7 @@ from datetime import date
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, email, password, phone_number, first_name, last_name):
+    def create_user(self, email, password, first_name, last_name, phone_number):
         if not email:
             raise ValueError("User must have an email address")
         if not password:
@@ -20,14 +20,19 @@ class UserManager(auth_models.BaseUserManager):
 
         normalized_email = self.normalize_email(email)
         user = self.model(email=normalized_email,
-                          username=normalized_email, phone_number=phone_number)
+                          username=normalized_email, 
+                          phone_number=phone_number,
+                          first_name=first_name,
+                          last_name=last_name)
         user.set_password(password)
         user.save()
 
         return user
 
     def create_superuser(self, email, password, phone_number):
-        user = self.create_user(email, password, phone_number)
+        first_name = ""
+        last_name = ""
+        user = self.create_user(email, password, first_name, last_name, phone_number)
         user.is_superuser = True
         user.is_staff = True
         user.save()
@@ -36,7 +41,6 @@ class UserManager(auth_models.BaseUserManager):
 
 
 class User(auth_models.AbstractUser):
-
     email = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(
         max_length=20,
@@ -68,19 +72,29 @@ class User(auth_models.AbstractUser):
     number_rating = models.IntegerField(default=0)
 
     skills = models.ManyToManyField(
-        common_models.Category, related_name="user_skills", through="UserSkill")
+        common_models.Category, 
+        related_name="user_skills", 
+        through="UserSkill",
+        blank=True
+    )
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number']
 
+    def save(self, *args, **kwargs):
+        return super().save(*args, **kwargs)
+
 
 class UserSkill(models.Model):
     user = models.ForeignKey(
-        User, related_name="users", on_delete=models.CASCADE)
+        User, on_delete=models.CASCADE)
     skill = models.ForeignKey(
-        common_models.Category, related_name="skills", on_delete=models.CASCADE
+        common_models.Category, on_delete=models.CASCADE
     )
     total_rating = models.IntegerField(default=0)
     number_rating = models.IntegerField(default=0)
+
+    class Meta: 
+        unique_together = ("user", "skill")
