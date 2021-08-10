@@ -2,10 +2,9 @@ from django.urls import path, include
 from knox import views as knox_views
 
 from . import views
-from . import api
 
 urlpatterns = [
-    # knox stuffs
+    # Knox stuffs
     path("", include('knox.urls')),
     path("logout", knox_views.LogoutView.as_view(), name="knox_logout"),
     # Authorization
@@ -18,5 +17,5 @@ urlpatterns = [
     # User skill
     path("user/skill/", views.UserSkillList.as_view(), name="user_skill_list"),
     path("user/skill/create", views.UserSkillCreate.as_view(), name="user_skill_create"),
-    path("user/skill/update", views.UserSkillUpdate.as_view(), name="user_skill_update"),
+    path("user/skill/<int:pk>/update", views.UserSkillUpdate.as_view(), name="user_skill_update"),
 ]

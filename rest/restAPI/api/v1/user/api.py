@@ -39,7 +39,7 @@ class UserSkillAPI(generics.GenericAPIView):
         user_skill = UserSkill.objects.get(user=user, skill=skill)
         if not user_skill:
             return JsonResponse({'status': 'No skill with that id found on user'}, status=404)
-        if user_skill.number_rating != 0:
+        if user_skill.number_of_ratings != 0:
             return JsonResponse({'status': 'Cannot delete skill with rating'}, status=404)
         user_skill.delete()
         return JsonResponse({'status': 'ok'}, safe=True)

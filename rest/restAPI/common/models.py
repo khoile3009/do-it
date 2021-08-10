@@ -1,11 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
+MAX_LENGTH_CHAR_FIELD = 255
 
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=255,
+        max_length=MAX_LENGTH_CHAR_FIELD,
         unique=True,
         default="N/A",
     )

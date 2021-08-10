@@ -41,7 +41,10 @@ class UserManager(auth_models.BaseUserManager):
 
 
 class User(auth_models.AbstractUser):
-    email = models.CharField(max_length=255, unique=True)
+    email = models.CharField(
+        max_length=common_models.MAX_LENGTH_CHAR_FIELD, 
+        unique=True
+    )
     phone_number = models.CharField(
         max_length=20,
         validators=[validators.RegexValidator(
@@ -52,24 +55,31 @@ class User(auth_models.AbstractUser):
     address = models.TextField(blank=True)
     birthday = models.DateField(default=date.today)
 
+    SEX_MALE = "male"
+    SEX_FEMALE = "female"
+    SEX_OTHER = "other"
     SEX_CHOICES = (
-        ("M", "Male"),
-        ("F", "Female"),
+        ("male", "Male"),
+        ("female", "Female"),
+        ("other", "Other")
     )
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="M")
+    sex = models.CharField(
+        max_length=common_models.MAX_LENGTH_CHAR_FIELD, 
+        choices=SEX_CHOICES, 
+        default="other"
+    )
 
-    # Basically hard-coded tags
-    description = models.TextField(blank=True, default="")
-    headline = models.TextField(blank=True, default="")
+    headline = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     current_balance = models.FloatField(default=0)
 
-    # To calculate average pay rate
-    total_pay = models.FloatField(default=0)
-    number_pay = models.IntegerField(default=0)
+    # Payments given as a customer
+    total_paid_amount = models.FloatField(default=0)
+    number_of_payments_paid = models.IntegerField(default=0)
 
     # To calculate rating
     total_rating = models.IntegerField(default=0)
-    number_rating = models.IntegerField(default=0)
+    number_of_ratings = models.IntegerField(default=0)
 
     skills = models.ManyToManyField(
         common_models.Category, 
@@ -94,7 +104,7 @@ class UserSkill(models.Model):
         common_models.Category, on_delete=models.CASCADE
     )
     total_rating = models.IntegerField(default=0)
-    number_rating = models.IntegerField(default=0)
+    number_of_ratings = models.IntegerField(default=0)
 
     class Meta: 
         unique_together = ("user", "skill")

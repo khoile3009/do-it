@@ -14,7 +14,7 @@ class UserBase(serializers.ModelSerializer):
         model = models.User
         fields = [
             "pk",
-            "username",
+            "email",
         ]
 
 
@@ -31,16 +31,15 @@ class UserSkillSerializer(serializers.ModelSerializer):
             "skill",
             "skill_id",
             "total_rating",
-            "number_rating",
+            "number_of_ratings",
         ]
         extra_kwargs = {
             "total_rating": {"read_only": True},
-            "number_rating": {"read_only": True},
+            "number_of_ratings": {"read_only": True},
         }
 
     def create(self, validated_data):
-        request = self.context.get('request', None)
-        user = request.user
+        user = self.context["request"].user
         skills = common_models.Category.objects.filter(id=validated_data["skill_id"])
         skill = skills.first()
         if models.UserSkill.objects.filter(user=user, skill=skill).exists():
@@ -63,7 +62,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = [
-            'id',
+            'pk',
             'username',
             'email',
             'full_name',
@@ -74,7 +73,7 @@ class UserSerializer(serializers.ModelSerializer):
             'headline',
             'description',
             'total_rating',
-            'number_rating',
+            'number_of_ratings',
             'skills',
         ]
 
@@ -91,7 +90,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = [
-            'id',
+            'pk',
             'email',
             'password',
             'first_name',
@@ -114,7 +113,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 # Login Serializer
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, data):
@@ -123,15 +122,3 @@ class LoginSerializer(serializers.Serializer):
             return user
         raise serializers.ValidationError("Incorrect Credentials")
 
-
-class UserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.User
-        fields = [
-            'address',
-            'birthday',
-            'headline',
-            'description',
-            'first_name',
-            'last_name'
-        ]

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from user import models as user_models
+from common import models as common_models
 
 
 OPTION_GOOD = "good"
@@ -21,7 +22,7 @@ class PayRange(models.Model):
     )
 
     currency = models.CharField(
-        max_length=140,
+        max_length=common_models.MAX_LENGTH_CHAR_FIELD,
         choices=CURRENCY_CHOICES, 
         default=CURRENCY_VND,
     )
@@ -34,7 +35,7 @@ class Job(models.Model):
         user_models.User, 
         on_delete=models.CASCADE,
     )
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=common_models.MAX_LENGTH_CHAR_FIELD)
     description = models.TextField(blank=True)
     # PayRange to be handled by 3rd party API 
     # pay_range = models.ForeignKey(
@@ -82,7 +83,7 @@ class Rating(models.Model):
     star = models.IntegerField(default=0)
     # Đánh giá chung?
     option = models.CharField(
-        max_length=100,
+        max_length=common_models.MAX_LENGTH_CHAR_FIELD,
         choices=OPTION_CHOICES,
         default=OPTION_GOOD,
     )
@@ -103,7 +104,7 @@ class ReportTicket(models.Model):
         related_name="received_tickets"
     )
     option = models.CharField(
-        max_length=100,
+        max_length=common_models.MAX_LENGTH_CHAR_FIELD,
         choices=OPTION_CHOICES,
         default=OPTION_GOOD,
     )
