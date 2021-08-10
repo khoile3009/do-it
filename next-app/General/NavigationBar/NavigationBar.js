@@ -32,14 +32,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 
-// Style props
-const drawerWidth = 480;
-
 // auth
 import RegisterModal from "../Auth/RegisterModal";
 import LoginModal from "../Auth/LoginModal";
 import CustomerProfileModal from "../../User/Customer/ProfileModal";
 
+// Style props
+const drawerWidth = 480;
 const useStyles = makeStyles((theme) => ({
 	// Navigation bar main styling
 	root: {
