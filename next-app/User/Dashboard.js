@@ -42,13 +42,13 @@ export default function Dashboard(props) {
     const theme = useTheme();
 
     // for testing only
-    const [userType, setUserType] = useState('worker');
+    const [userType, setUserType] = useState(false);
     const handleUserType = (event) => {
         event.preventDefault();
-        if (userType == 'worker') {
-            setUserType('customer');
+        if (userType == false) {
+            setUserType(true);
         } else {
-            setUserType('worker')
+            setUserType(false)
         }
     }
     // ---------------------------------------
