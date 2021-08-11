@@ -4,6 +4,8 @@
   - pipenv shell
   - cd restAPI
   - python manage.py runserver
+
+* May need remove `Pipfile.lock` when encounter platform issues during `pipenv install` and re-run the command.
   
 * Step to install new package
   - pipenv install [package-name]
