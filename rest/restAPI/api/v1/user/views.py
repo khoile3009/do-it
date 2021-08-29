@@ -17,7 +17,7 @@ class Register(generics.GenericAPIView):
         user = serializer.save()
         _, token = AuthToken.objects.create(user)
         return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "user": serializers.UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token
         })
 
