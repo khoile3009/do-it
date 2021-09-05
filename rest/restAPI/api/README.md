@@ -17,12 +17,12 @@
 
 ```json
 {
-	"username": "bob",
+	"email": "bob",
 	"password": "123"
 }
 ```
 
-# To get user from the token, put the token in header "Authorization" and GET /api/v1/user/retrieve
+## To get user from the token, put the token in header "Authorization" and GET /api/v1/user/retrieve
 
 ```json
 Headers {
@@ -30,7 +30,7 @@ Headers {
 }
 ```
 
-# To logout using Postman, create a POST api/v1/auth/logout with body of something like this
+## To logout using Postman, create a POST api/v1/auth/logout with body of something like this
 
 ```json
 Headers {
@@ -39,7 +39,6 @@ Headers {
 ```
 
 ## To list out all User, send a GET request to /api/v1/user/
-
 -   User list is paginated at 20 at a time
 
 # Job API
@@ -378,3 +377,17 @@ Headers {
 ## To query for a list of category, GET request to  /api/v1/category
 
 ## To query for a category using name or id, GET request to /api/v1/category/?name=\<name>&?id=\<id>
+
+## To add a skill to user, POST request to api/v1/user/skill using a token of user you want to add (you can add your own skill) with body of 
+```json
+{
+	"skill_id": <id>
+}
+```
+
+## To delete skill to user, DELETE request to api/v1/user/skill using a token of user you want to add (you can add your own skill) with body of 
+```json
+{
+	"skill_id": <id>
+}
+```
